@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>baach</name>
-    <description>Demo project for Spring Boot</description>
+    <description>baa channel module</description>
 
     <modules>
         <module>chirrup</module>

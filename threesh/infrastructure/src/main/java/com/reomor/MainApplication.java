@@ -1,4 +1,4 @@
-package com.reomor.threesh;
+package com.reomor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
