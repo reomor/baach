@@ -2,11 +2,11 @@ package com.reomor.core.service;
 
 import com.reomor.core.domain.Image;
 
-public interface ImageService {
+public interface ImageStorageService {
 
-    Image create(Image image);
+    Image store(Image image);
 
-    Image get(Long id);
+    Image load(String filename);
 
     Image delete(Image image);
 }
