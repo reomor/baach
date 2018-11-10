@@ -1,5 +1,11 @@
 # Spring Framework graduation project
 
+run application
+```
+mvnw install
+mvnw spring-boot:run -pl threesh/spring-application
+```
+
 [Spring multi module](https://spring.io/guides/gs/multi-module/) <br>
 [Onion](https://dzone.com/articles/onion-architecture-is-interesting)
 
@@ -12,4 +18,5 @@ how to use maven wrapper
 ./mvnw install && ./mvnw spring-boot:run -pl application
 ```
 
-https://grokonez.com/spring-framework/spring-data/spring-hibernate-jpa-upload-download-file-image-to-postgresql-with-lob
+https://grokonez.com/spring-framework/spring-data/spring-hibernate-jpa-upload-download-file-image-to-postgresql-with-lob <br>
+https://spring.io/guides/gs/uploading-files/

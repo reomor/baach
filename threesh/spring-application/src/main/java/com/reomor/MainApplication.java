@@ -3,7 +3,7 @@ package com.reomor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.reomor")
 public class MainApplication {
 
     public static void main(String[] args) {

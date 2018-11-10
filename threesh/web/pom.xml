@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.reomor</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -12,9 +11,39 @@
     <name>web</name>
     <description>Web realizations</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <application-core.version>0.0.1-SNAPSHOT</application-core.version>
+        <infrastructure.version>0.0.1-SNAPSHOT</infrastructure.version>
+    </properties>
+
+    <parent>
+        <groupId>com.reomor</groupId>
+        <artifactId>threesh</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
     <modules>
         <module>rest</module>
         <module>ui</module>
     </modules>
-    
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.reomor</groupId>
+            <artifactId>application-core</artifactId>
+            <version>${application-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.reomor</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>${infrastructure.version}</version>
+        </dependency>
+
+    </dependencies>
+
 </project>
