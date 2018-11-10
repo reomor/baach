@@ -11,3 +11,5 @@ how to use maven wrapper
 ```
 ./mvnw install && ./mvnw spring-boot:run -pl application
 ```
+
+https://grokonez.com/spring-framework/spring-data/spring-hibernate-jpa-upload-download-file-image-to-postgresql-with-lob
