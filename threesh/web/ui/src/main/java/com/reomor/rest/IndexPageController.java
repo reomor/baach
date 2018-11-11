@@ -6,10 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class GeneralController {
+public class IndexPageController {
+
     @GetMapping("/home")
     public String listPage() {
         log.info("Main page");
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }
