@@ -4,6 +4,8 @@ import com.reomor.core.domain.User;
 import com.reomor.core.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserRepositoryImpl implements UserRepository {
 
@@ -11,6 +13,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     public UserRepositoryImpl(JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;
+    }
+
+    @Override
+    public User findOneByEmail(String email) {
+        return null;
     }
 
     @Override
@@ -30,6 +37,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
+        return null;
+    }
+
+    @Override
+    public List<User> getAll() {
         return null;
     }
 }

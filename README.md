@@ -24,3 +24,6 @@ https://spring.io/guides/gs/uploading-files/ <br>
 https://github.com/callicoder/spring-boot-file-upload-download-rest-api-example 
 
 https://www.baeldung.com/spring-boot-custom-auto-configuration
+
+logback
+https://www.baeldung.com/logback
