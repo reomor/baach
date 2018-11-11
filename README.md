@@ -19,4 +19,8 @@ how to use maven wrapper
 ```
 
 https://grokonez.com/spring-framework/spring-data/spring-hibernate-jpa-upload-download-file-image-to-postgresql-with-lob <br>
-https://spring.io/guides/gs/uploading-files/
+https://spring.io/guides/gs/uploading-files/ <br>
+[multiple load](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example) <br>
+https://github.com/callicoder/spring-boot-file-upload-download-rest-api-example 
+
+https://www.baeldung.com/spring-boot-custom-auto-configuration

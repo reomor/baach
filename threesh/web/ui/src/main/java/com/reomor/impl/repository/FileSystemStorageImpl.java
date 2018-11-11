@@ -1,5 +1,6 @@
-package com.reomor.impl.service;
+package com.reomor.impl.repository;
 
+import com.reomor.configuration.StorageProperties;
 import com.reomor.core.exception.StorageException;
 import com.reomor.core.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,19 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService {
+public class FileSystemStorageImpl implements FileSystemStorage {
 
     private final Path rootLocation;
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
+    public FileSystemStorageImpl(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
+        this.deleteAll();
+        try {
+            Files.createDirectories(rootLocation);
+        } catch (IOException e) {
+            throw new StorageException("Could not initialize storage", e);
+        }
     }
 
     @Override
@@ -64,14 +71,9 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public Path load(String filename) {
-        return rootLocation.resolve(filename);
-    }
-
-    @Override
     public Resource loadAsResource(String filename) {
         try {
-            Path file = load(filename);
+            Path file = rootLocation.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
@@ -87,14 +89,5 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
-    }
-
-    @Override
-    public void init() {
-        try {
-            Files.createDirectories(rootLocation);
-        } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }
     }
 }

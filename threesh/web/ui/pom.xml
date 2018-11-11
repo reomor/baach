@@ -20,6 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <application-core.version>0.0.1-SNAPSHOT</application-core.version>
+        <infrastructure.version>0.0.1-SNAPSHOT</infrastructure.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,12 @@
             <groupId>com.reomor</groupId>
             <artifactId>application-core</artifactId>
             <version>${application-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.reomor</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>${infrastructure.version}</version>
         </dependency>
 
         <dependency>

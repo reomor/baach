@@ -1,7 +1,9 @@
-package com.reomor.impl.service;
+package com.reomor.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @ConfigurationProperties("storage")
 public class StorageProperties {
 
