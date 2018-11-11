@@ -8,12 +8,9 @@ import java.util.stream.Stream;
 
 public interface FileSystemStorage {
 
-    void store(MultipartFile file);
+    String store(MultipartFile file);
 
     Stream<Path> loadAll();
 
     Resource loadAsResource(String filename);
-
-    void deleteAll();
-
 }

@@ -28,7 +28,7 @@ public class FileSystemStorageImpl implements FileSystemStorage {
     @Autowired
     public FileSystemStorageImpl(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
-        this.deleteAll();
+        // this.deleteAll();
         try {
             Files.createDirectories(rootLocation);
         } catch (IOException e) {
@@ -37,7 +37,7 @@ public class FileSystemStorageImpl implements FileSystemStorage {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public String store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -53,6 +53,7 @@ public class FileSystemStorageImpl implements FileSystemStorage {
                 Files.copy(inputStream, this.rootLocation.resolve(filename),
                         StandardCopyOption.REPLACE_EXISTING);
             }
+            return filename;
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
@@ -86,8 +87,7 @@ public class FileSystemStorageImpl implements FileSystemStorage {
         }
     }
 
-    @Override
-    public void deleteAll() {
+    private void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 }
