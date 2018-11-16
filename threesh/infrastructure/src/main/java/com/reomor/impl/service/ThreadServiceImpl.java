@@ -1,38 +1,38 @@
 package com.reomor.impl.service;
 
 import com.reomor.core.domain.Post;
-import com.reomor.core.domain.PostThread;
+import com.reomor.core.domain.Thread;
 import com.reomor.core.repository.ImageStorage;
-import com.reomor.core.service.PostThreadService;
+import com.reomor.core.service.ThreadService;
 
 import java.util.List;
 
 
-public class PostThreadServiceImpl implements PostThreadService {
+public class ThreadServiceImpl implements ThreadService {
 
     private final ImageStorage imageStorage;
 
-    public PostThreadServiceImpl(ImageStorage imageStorage) {
+    public ThreadServiceImpl(ImageStorage imageStorage) {
         this.imageStorage = imageStorage;
     }
 
     @Override
-    public PostThread create(PostThread postThread) {
+    public Thread create(Thread thread) {
         return null;
     }
 
     @Override
-    public PostThread get(Long id) {
+    public Thread get(Long id) {
         return null;
     }
 
     @Override
-    public PostThread delete(PostThread postThread) {
+    public Thread delete(Thread thread) {
         return null;
     }
 
     @Override
-    public PostThread update(PostThread postThread) {
+    public Thread update(Thread thread) {
         return null;
     }
 
