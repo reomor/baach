@@ -1,19 +1,19 @@
 package com.reomor.core.repository;
 
 import com.reomor.core.domain.Post;
-import com.reomor.core.domain.PostThread;
+import com.reomor.core.domain.Thread;
 
 import java.util.List;
 
-public interface PostThreadRepository {
+public interface ThreadRepository {
 
-    PostThread create(PostThread postThread);
+    Thread create(Thread thread);
 
-    PostThread get(Long id);
+    Thread get(Long id);
 
-    PostThread delete(PostThread postThread);
+    Thread delete(Thread thread);
 
-    PostThread update(PostThread postThread);
+    Thread update(Thread thread);
 
     List<Post> getAllPostsInThread(Long threadId);
 

@@ -1,10 +1,10 @@
-package com.reomor.core.service;
+package com.reomor.core.repository;
 
 import com.reomor.core.domain.Channel;
 
 import java.util.List;
 
-public interface ChannelService {
+public interface ChannelRepository {
 
     Channel create(Channel channel);
 

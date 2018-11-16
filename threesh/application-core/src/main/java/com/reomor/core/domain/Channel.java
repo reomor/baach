@@ -5,7 +5,5 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Image {
-    private String directory;
-    private String fileName;
+public class Channel {
 }
