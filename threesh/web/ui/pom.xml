@@ -21,6 +21,7 @@
         <java.version>1.8</java.version>
         <application-core.version>0.0.1-SNAPSHOT</application-core.version>
         <infrastructure.version>0.0.1-SNAPSHOT</infrastructure.version>
+        <rest.version>0.0.1-SNAPSHOT</rest.version>
     </properties>
 
     <dependencies>
@@ -35,6 +36,12 @@
             <groupId>com.reomor</groupId>
             <artifactId>infrastructure</artifactId>
             <version>${infrastructure.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.reomor</groupId>
+            <artifactId>rest</artifactId>
+            <version>${rest.version}</version>
         </dependency>
 
         <dependency>
