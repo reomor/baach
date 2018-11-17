@@ -2,10 +2,10 @@ package com.reomor.config;
 
 import com.reomor.configuration.StorageProperties;
 import com.reomor.core.repository.ImageStorage;
-import com.reomor.core.service.PostThreadService;
+import com.reomor.core.service.ThreadService;
 import com.reomor.impl.repository.FileSystemStorage;
-import com.reomor.impl.repository.FileSystemStorageRepository;
-import com.reomor.impl.service.PostThreadServiceImpl;
+import com.reomor.impl.repository.ImageStorageImpl;
+import com.reomor.impl.service.ThreadServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,14 +13,12 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    //@ConditionalOnBean(name = "imageStorage")
-    //@ConditionalOnMissingBean
     public ImageStorage imageStorage(StorageProperties storageProperties, FileSystemStorage fileSystemStorage) {
-        return new FileSystemStorageRepository(storageProperties, fileSystemStorage);
+        return new ImageStorageImpl(storageProperties, fileSystemStorage);
     }
 
     @Bean
-    public PostThreadService postThreadService(ImageStorage imageStorage) {
-        return new PostThreadServiceImpl(imageStorage);
+    public ThreadService postThreadService(ImageStorage imageStorage) {
+        return new ThreadServiceImpl(imageStorage);
     }
 }

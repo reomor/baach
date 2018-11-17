@@ -14,6 +14,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "USER")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

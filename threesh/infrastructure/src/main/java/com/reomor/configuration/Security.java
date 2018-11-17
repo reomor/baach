@@ -67,7 +67,8 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.headers().frameOptions().disable()
+                .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .anonymous().authorities("ROLE_ANONYMOUS")
@@ -77,7 +78,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout"))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/*/**").permitAll()
 //                .antMatchers("/register").permitAll()
 //                .antMatchers(HttpMethod.POST, "/rest/authors").hasAuthority("ROLE_ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/rest/authors/**").hasAuthority("ROLE_ADMIN")

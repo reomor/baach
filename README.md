@@ -27,3 +27,6 @@ https://www.baeldung.com/spring-boot-custom-auto-configuration
 
 logback
 https://www.baeldung.com/logback
+
+entity graph in spring data
+https://www.jeejava.com/spring-data-jpa-entity-graphs/
