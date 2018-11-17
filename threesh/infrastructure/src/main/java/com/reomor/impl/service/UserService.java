@@ -1,18 +1,16 @@
-package com.reomor.core.repository;
+package com.reomor.impl.service;
 
 import com.reomor.core.domain.User;
 
 import java.util.List;
 
-public interface UserRepository {
-
-    User findOneByEmail(String email);
+public interface UserService {
 
     User create(User user);
 
     User get(Long id);
 
-    User delete(User user);
+    void delete(User user);
 
     User update(User user);
 

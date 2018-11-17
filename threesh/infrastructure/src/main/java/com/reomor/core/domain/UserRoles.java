@@ -1,12 +1,11 @@
-package com.reomor.impl.entity;
+package com.reomor.core.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum UserRoles implements GrantedAuthority {
     ROLE_ANONYMOUS,
     ROLE_USER,
-    ROLE_ADMIN,
-    ROLE_UBER;
+    ROLE_ADMIN;
 
     @Override
     public String getAuthority() {

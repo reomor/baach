@@ -1,6 +1,6 @@
 package com.reomor.configuration;
 
-import com.reomor.impl.entity.UserEntity;
+import com.reomor.core.domain.User;
 import com.reomor.impl.service.UserAuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,13 +40,15 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(userAuthorizationService);
         auth.authenticationProvider(new AuthenticationProvider() {
+
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
                 String email = (String) authentication.getPrincipal();
                 String providedPassword = (String) authentication.getCredentials();
-                UserEntity authenticatedUser = userAuthorizationService.findAndAuthenticate(email, providedPassword);
+                User authenticatedUser = userAuthorizationService.findAndAuthenticate(email, providedPassword);
                 if (authenticatedUser == null) {
                     throw new BadCredentialsException("Username/Password does not match for " + email);
                 }
@@ -61,16 +63,16 @@ public class Security extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(WebSecurity web) {
-        // allows access to swagger
-        web.ignoring().antMatchers( "/webjars/**", "/js/**", "/css/**");
+        web.ignoring().antMatchers( "/webjars/**", "/js/**", "/css/**", "/h2-console");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable()
                 .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                // store session or else authorization is lost with new request
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                //.and()
                 .anonymous().authorities("ROLE_ANONYMOUS")
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
@@ -78,7 +80,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout"))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/*/**").permitAll()
+                .antMatchers("/").permitAll()
 //                .antMatchers("/register").permitAll()
 //                .antMatchers(HttpMethod.POST, "/rest/authors").hasAuthority("ROLE_ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/rest/authors/**").hasAuthority("ROLE_ADMIN")

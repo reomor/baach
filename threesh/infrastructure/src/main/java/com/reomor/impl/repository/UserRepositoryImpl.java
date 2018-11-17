@@ -1,47 +1,59 @@
 package com.reomor.impl.repository;
 
 import com.reomor.core.domain.User;
-import com.reomor.core.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import com.reomor.impl.entity.UserEntity;
+import com.reomor.impl.mapper.DomainToEntityMapper;
+import com.reomor.impl.mapper.EntityToDomainMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Service
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
+    private final EntityToDomainMapper entityToDomainMapper;
+    private final DomainToEntityMapper domainToEntityMapper;
 
-    public UserRepositoryImpl(JpaUserRepository jpaUserRepository) {
+    public UserRepositoryImpl(JpaUserRepository jpaUserRepository, EntityToDomainMapper entityToDomainMapper, DomainToEntityMapper domainToEntityMapper) {
         this.jpaUserRepository = jpaUserRepository;
+        this.entityToDomainMapper = entityToDomainMapper;
+        this.domainToEntityMapper = domainToEntityMapper;
     }
 
     @Override
     public User findOneByEmail(String email) {
-        return null;
+        UserEntity userEntity = jpaUserRepository.findOneByEmail(email);
+        return userEntity == null ? null : entityToDomainMapper.convertUser(userEntity);
     }
 
     @Override
     public User create(User user) {
-        return null;
+        UserEntity userEntity = jpaUserRepository.save(domainToEntityMapper.convertUser(user));
+        return entityToDomainMapper.convertUser(userEntity);
     }
 
     @Override
     public User get(Long id) {
-        return null;
+        UserEntity userEntity = jpaUserRepository.findById(id).orElse(null);
+        return entityToDomainMapper.convertUser(userEntity);
     }
 
     @Override
-    public User delete(User user) {
-        return null;
+    public void delete(User user) {
+        jpaUserRepository.deleteById(user.getId());
     }
 
     @Override
     public User update(User user) {
-        return null;
+        UserEntity userEntity = jpaUserRepository.save(domainToEntityMapper.convertUser(user));
+        return entityToDomainMapper.convertUser(userEntity);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        List<UserEntity> all = jpaUserRepository.findAll();
+        return all.stream().map(entityToDomainMapper::convertUser).collect(Collectors.toList());
     }
 }
