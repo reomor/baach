@@ -6,6 +6,7 @@ import com.reomor.impl.entity.ChannelEntity;
 import com.reomor.impl.mapper.DomainToEntityMapper;
 import com.reomor.impl.mapper.EntityToDomainMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class ChannelRepositoryImpl implements ChannelRepository {
     @Override
     public Channel create(Channel channel) {
         ChannelEntity channelEntity = domainToEntityMapper.convertChannel(channel);
-        return entityToDomainMapper.convertChannel(channelRepository.save(channelEntity));
+        return entityToDomainMapper.convertChannel(channelRepository.save(channelEntity), true);
     }
 
     @Override
     public Channel get(Long id) {
-        return entityToDomainMapper.convertChannel(channelRepository.findById(id).orElse(null));
+        return entityToDomainMapper.convertChannel(channelRepository.findById(id).orElse(null), true);
     }
 
     @Override
@@ -51,7 +52,17 @@ public class ChannelRepositoryImpl implements ChannelRepository {
     }
 
     @Override
+    public Channel getWithThreads(Long channelId) {
+        ChannelEntity channelEntity = channelRepository.findById(channelId).orElse(null);
+        return entityToDomainMapper.convertChannel(channelEntity, false);
+    }
+
+
+    @Override
     public List<Channel> getAll() {
-        return channelRepository.findAll().stream().map(entityToDomainMapper::convertChannel).collect(Collectors.toList());
+        List<ChannelEntity> all = channelRepository.findAll(new Sort(Sort.Direction.ASC, "name"));
+        return all.stream()
+                .map((ChannelEntity channelEntity) -> entityToDomainMapper.convertChannel(channelEntity, true))
+                .collect(Collectors.toList());
     }
 }

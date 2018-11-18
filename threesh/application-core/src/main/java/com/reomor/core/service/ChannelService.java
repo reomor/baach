@@ -14,5 +14,7 @@ public interface ChannelService {
 
     Channel update(Channel channel);
 
+    Channel getWithThreads(Long channelId);
+
     List<Channel> getAll();
 }

@@ -30,8 +30,12 @@ public class EntityToDomainMapper {
         return new Thread(threadEntity.getId(), threadEntity.getMessage(), threadEntity.getDateTime(), image, posts);
     }
 
-    public Channel convertChannel(ChannelEntity channelEntity) {
-        List<Thread> threads = channelEntity.getThreads().stream().map(this::convertThread).collect(Collectors.toList());
-        return new Channel(channelEntity.getId(), channelEntity.getName(), threads);
+    public Channel convertChannel(ChannelEntity channelEntity, boolean lazy) {
+        if (!lazy) {
+            List<Thread> threads = channelEntity.getThreads().stream().map(this::convertThread).collect(Collectors.toList());
+            return new Channel(channelEntity.getId(), channelEntity.getName(), threads);
+        } else {
+            return new Channel(channelEntity.getId(), channelEntity.getName(), null);
+        }
     }
 }

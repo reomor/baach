@@ -39,6 +39,11 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
+    public Channel getWithThreads(Long channelId) {
+        return channelRepository.getWithThreads(channelId);
+    }
+
+    @Override
     public List<Channel> getAll() {
         return channelRepository.getAll();
     }
