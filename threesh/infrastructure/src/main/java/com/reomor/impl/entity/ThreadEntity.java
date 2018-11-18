@@ -10,23 +10,28 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "THREAD")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ThreadEntity {
     @Id
+    @Column(name = "thread_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channel_id")
     private ChannelEntity channel;
 
+    @Column(name = "message")
     private String message;
 
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "image_id")
     private ImageEntity image;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

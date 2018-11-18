@@ -9,23 +9,28 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Table(name = "POST")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostEntity {
     @Id
+    @Column(name = "post_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "thread_id")
     private ThreadEntity thread;
 
+    @Column(name = "message")
     private String message;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "image_id")
     private ImageEntity image;
 
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
     public PostEntity(Long id, String message, ImageEntity image, LocalDateTime dateTime) {

@@ -16,9 +16,11 @@ import java.util.List;
 public class ChannelEntity {
 
     @Id
+    @Column(name = "channel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

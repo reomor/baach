@@ -24,18 +24,69 @@
             <column name="user_id" type="int"/>
             <column name="role" type="varchar(255)"/>
         </createTable>
-        
+
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
+                                 constraintName="user_id_fk"
+                                 referencedTableName="user" referencedColumnNames="id"/>
+
+        <createTable tableName="image">
+            <column name="image_id" type="int">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="directory" type="varchar(255)"/>
+            <column name="file_name" type="varchar(255)"/>
+        </createTable>
+
+        <addAutoIncrement tableName="image" columnName="image_id" columnDataType="int" startWith="1" incrementBy="1"/>
+
         <createTable tableName="channel">
-            <column name="id" type="int">
+            <column name="channel_id" type="int">
                 <constraints unique="true" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
         </createTable>
 
-        <addAutoIncrement tableName="channel" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
+        <addAutoIncrement tableName="channel" columnName="channel_id" columnDataType="int" startWith="1" incrementBy="1"/>
+        
+        <createTable tableName="thread">
+            <column name="thread_id" type="int">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="message" type="varchar(255)"/>
+            <column name="date_time" type="DATETIME"/>
+            <column name="channel_id" type="int"/>
+            <column name="image_id" type="int"/>
+        </createTable>
 
-        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
-                                 constraintName="user_id_fk"
-                                 referencedTableName="user" referencedColumnNames="id"/>
+        <addAutoIncrement tableName="thread" columnName="thread_id" columnDataType="int" startWith="1" incrementBy="1"/>
+
+        <addForeignKeyConstraint baseTableName="thread" baseColumnNames="channel_id"
+                                 constraintName="thread_channel_id_fk"
+                                 referencedTableName="channel" referencedColumnNames="channel_id"/>
+
+        <addForeignKeyConstraint baseTableName="thread" baseColumnNames="image_id"
+                                 constraintName="thread_image_id_fk"
+                                 referencedTableName="image" referencedColumnNames="image_id"/>
+
+        <createTable tableName="post">
+            <column name="post_id" type="int">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="message" type="varchar(1024)"/>
+            <column name="date_time" type="DATETIME"/>
+            <column name="thread_id" type="int"/>
+            <column name="image_id" type="int"/>
+        </createTable>
+
+        <addAutoIncrement tableName="post" columnName="post_id" columnDataType="int" startWith="1" incrementBy="1"/>
+
+        <addForeignKeyConstraint baseTableName="post" baseColumnNames="thread_id"
+                                 constraintName="post_thread_id_fk"
+                                 referencedTableName="thread" referencedColumnNames="thread_id"/>
+
+        <addForeignKeyConstraint baseTableName="post" baseColumnNames="image_id"
+                                 constraintName="post_image_id_fk"
+                                 referencedTableName="image" referencedColumnNames="image_id"/>
+
     </changeSet>
 </databaseChangeLog>

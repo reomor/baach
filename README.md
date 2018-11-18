@@ -20,6 +20,7 @@ how to use maven wrapper
 
 https://grokonez.com/spring-framework/spring-data/spring-hibernate-jpa-upload-download-file-image-to-postgresql-with-lob <br>
 https://spring.io/guides/gs/uploading-files/ <br>
+http://www.mkyong.com/spring-boot/spring-boot-file-upload-example/ <br>
 [multiple load](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example) <br>
 https://github.com/callicoder/spring-boot-file-upload-download-rest-api-example 
 
@@ -30,3 +31,6 @@ https://www.baeldung.com/logback
 
 entity graph in spring data
 https://www.jeejava.com/spring-data-jpa-entity-graphs/
+
+drag and drop
+https://bitwiser.in/2015/08/08/creating-dropzone-for-drag-drop-file.html
