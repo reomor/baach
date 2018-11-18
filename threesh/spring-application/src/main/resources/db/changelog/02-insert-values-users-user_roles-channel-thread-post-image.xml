@@ -8,6 +8,7 @@
 
     <changeSet id="02" author="reomor">
 
+        <!-- USER -->
         <insert tableName="user">
             <column name="name">admin</column>
             <column name="email">admin@admin.com</column>
@@ -23,6 +24,19 @@
         <insert tableName="user_roles">
             <column name="user_id">1</column>
             <column name="role">ROLE_USER</column>
+        </insert>
+
+        <!-- CHANNEL -->
+        <insert tableName="channels">
+            <column name="name">aaa</column>
+        </insert>
+
+        <insert tableName="channels">
+            <column name="name">bbb</column>
+        </insert>
+
+        <insert tableName="channels">
+            <column name="name">ccc</column>
         </insert>
 
     </changeSet>

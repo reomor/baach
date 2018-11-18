@@ -10,7 +10,7 @@ public interface ChannelService {
 
     Channel get(Long id);
 
-    Channel delete(Channel channel);
+    void delete(Channel channel);
 
     Channel update(Channel channel);
 

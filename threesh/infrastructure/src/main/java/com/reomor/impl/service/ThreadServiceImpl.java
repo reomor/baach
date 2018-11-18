@@ -27,8 +27,8 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Thread delete(Thread thread) {
-        return null;
+    public void delete(Thread thread) {
+
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public List<Post> getAllPostsInThread(Long threadId) {
+    public List<Thread> findAllThreadsInChannel(Long channelId) {
         return null;
     }
 
@@ -52,12 +52,17 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Post deletePost(Post post) {
-        return null;
+    public void deletePost(Post post) {
+
     }
 
     @Override
     public Post updatePost(Post post) {
+        return null;
+    }
+
+    @Override
+    public List<Post> getAllPostsInThread(Long threadId) {
         return null;
     }
 }

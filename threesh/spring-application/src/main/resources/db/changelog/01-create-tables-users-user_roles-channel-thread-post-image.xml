@@ -23,6 +23,13 @@
             <column name="user_id" type="int"/>
             <column name="role" type="varchar(255)"/>
         </createTable>
+        
+        <createTable tableName="channel">
+            <column name="id" type="int">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
 
         <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
                                  constraintName="user_id_fk"
