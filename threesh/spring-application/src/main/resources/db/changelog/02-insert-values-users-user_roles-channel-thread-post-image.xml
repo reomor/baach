@@ -27,15 +27,15 @@
         </insert>
 
         <!-- CHANNEL -->
-        <insert tableName="channels">
+        <insert tableName="channel">
             <column name="name">aaa</column>
         </insert>
 
-        <insert tableName="channels">
+        <insert tableName="channel">
             <column name="name">bbb</column>
         </insert>
 
-        <insert tableName="channels">
+        <insert tableName="channel">
             <column name="name">ccc</column>
         </insert>
 

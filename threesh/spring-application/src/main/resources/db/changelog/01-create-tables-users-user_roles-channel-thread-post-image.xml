@@ -17,6 +17,7 @@
             <column name="password_hash" type="varchar(255)"/>
             <column name="password_salt" type="varchar(255)"/>
         </createTable>
+
         <addAutoIncrement tableName="user" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
 
         <createTable tableName="user_roles" remarks="user entities">
@@ -30,6 +31,8 @@
             </column>
             <column name="name" type="varchar(255)"/>
         </createTable>
+
+        <addAutoIncrement tableName="channel" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
 
         <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
                                  constraintName="user_id_fk"

@@ -2,7 +2,7 @@
 
 run application
 ```
-mvnw install
+mvn clean && mvnw install
 mvnw spring-boot:run -pl threesh/spring-application
 ```
 
