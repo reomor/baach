@@ -9,7 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Thread {
-    private String text;
+    private Long id;
+    private String message;
     private LocalDateTime dateTime;
+    private Image image;
     private List<Post> posts;
 }

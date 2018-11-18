@@ -6,12 +6,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "IMAGE")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImageEntity {
+
     @Id
     private Long id;
 

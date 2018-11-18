@@ -9,7 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Post {
-    private String text;
-    private List<Image> images;
+    private Long id;
+    private String message;
     private LocalDateTime dateTime;
+    private Image images;
 }

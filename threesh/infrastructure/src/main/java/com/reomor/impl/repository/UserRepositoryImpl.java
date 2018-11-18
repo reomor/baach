@@ -16,7 +16,11 @@ public class UserRepositoryImpl implements UserRepository {
     private final EntityToDomainMapper entityToDomainMapper;
     private final DomainToEntityMapper domainToEntityMapper;
 
-    public UserRepositoryImpl(JpaUserRepository jpaUserRepository, EntityToDomainMapper entityToDomainMapper, DomainToEntityMapper domainToEntityMapper) {
+    public UserRepositoryImpl(
+            JpaUserRepository jpaUserRepository,
+            EntityToDomainMapper entityToDomainMapper,
+            DomainToEntityMapper domainToEntityMapper
+    ) {
         this.jpaUserRepository = jpaUserRepository;
         this.entityToDomainMapper = entityToDomainMapper;
         this.domainToEntityMapper = domainToEntityMapper;
@@ -47,8 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
-        UserEntity userEntity = jpaUserRepository.save(domainToEntityMapper.convertUser(user));
-        return entityToDomainMapper.convertUser(userEntity);
+        return create(user);
     }
 
     @Override

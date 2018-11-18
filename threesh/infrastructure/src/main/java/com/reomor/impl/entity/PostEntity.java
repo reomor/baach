@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +25,15 @@ public class PostEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private ImageEntity image;
+
+    private LocalDateTime dateTime;
+
+    public PostEntity(Long id, String message, ImageEntity image, LocalDateTime dateTime) {
+        this.id = id;
+        this.message = message;
+        this.image = image;
+        this.dateTime = dateTime;
+    }
 
     @Override
     public boolean equals(Object o) {

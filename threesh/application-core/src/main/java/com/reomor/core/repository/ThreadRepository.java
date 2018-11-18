@@ -11,17 +11,19 @@ public interface ThreadRepository {
 
     Thread get(Long id);
 
-    Thread delete(Thread thread);
+    void delete(Thread thread);
 
     Thread update(Thread thread);
 
-    List<Post> getAllPostsInThread(Long threadId);
+    List<Thread> findAllThreadsInChannel(Long channelId);
 
     Post createPost(Post post);
 
     Post getPost(Long id);
 
-    Post deletePost(Post post);
+    void deletePost(Post post);
 
     Post updatePost(Post post);
+
+    List<Post> getAllPostsInThread(Long threadId);
 }

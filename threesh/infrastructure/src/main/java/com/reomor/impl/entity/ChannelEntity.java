@@ -13,7 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @NamedEntityGraph(name = "channel.threads", attributeNodes = { @NamedAttributeNode("threads") })
 public class ChannelEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
