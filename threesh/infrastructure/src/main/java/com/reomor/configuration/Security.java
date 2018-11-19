@@ -80,7 +80,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout"))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/*").permitAll()
+                .antMatchers("/**/*").permitAll()
                 .antMatchers("/files/**/*").permitAll()
 //                .antMatchers("/register").permitAll()
 //                .antMatchers(HttpMethod.POST, "/rest/authors").hasAuthority("ROLE_ADMIN")
