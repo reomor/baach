@@ -20,7 +20,7 @@ public class DomainToEntityMapper {
     }
 
     public PostEntity convertPost(Post post) {
-        ImageEntity imageEntity = convertImage(post.getImages());
+        ImageEntity imageEntity = convertImage(post.getImage());
         return new PostEntity(post.getId(), post.getMessage(), imageEntity, post.getDateTime());
     }
 

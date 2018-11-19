@@ -12,5 +12,5 @@ public class Post {
     private Long id;
     private String message;
     private LocalDateTime dateTime;
-    private Image images;
+    private Image image;
 }

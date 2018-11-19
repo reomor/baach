@@ -52,8 +52,8 @@
             <column name="thread_id" type="int">
                 <constraints unique="true" primaryKey="true"/>
             </column>
-            <column name="message" type="varchar(255)"/>
-            <column name="date_time" type="DATETIME"/>
+            <column name="message" type="varchar(1024)"/>
+            <column name="date_time" type="DATETIME" value="now()"/>
             <column name="channel_id" type="int"/>
             <column name="image_id" type="int"/>
         </createTable>
@@ -73,7 +73,7 @@
                 <constraints unique="true" primaryKey="true"/>
             </column>
             <column name="message" type="varchar(1024)"/>
-            <column name="date_time" type="DATETIME"/>
+            <column name="date_time" type="DATETIME" value="now()"/>
             <column name="thread_id" type="int"/>
             <column name="image_id" type="int"/>
         </createTable>
