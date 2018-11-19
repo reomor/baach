@@ -47,7 +47,7 @@
             </nav>
         </div>
         <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
-            <h5 class="bd-title" th:text="${channel.name}">aaa channel</h5>
+            <h5 class="bd-title" th:text="${channel.name} + ' channel'">aaa channel</h5>
             <div class="card mb-3" th:each="thread : ${channel.threads}">
                 <div class="card-header">
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -61,25 +61,19 @@
                         <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                              th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
                         <div class="media-body">
-                            <h5 class="mt-0">Receta 1</h5>
+                            <h5 class="mt-0" th:text="${thread.id}">Receta 1</h5>
                             <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Duis pharetra varius quam sit
+                                Duis pharetra varius
                             </div>
                             <ul class="list-inline list-unstyled">
-                                <li class="list-inline-item">by TestAuthor</li>
+                                <li class="list-inline-item">by Anonymous</li>
                                 <li class="list-inline-item">|</li>
                                 <li class="list-inline-item"><span><i
                                         class="fa fa-calendar"></i> <span
-                                        th:text="${#temporals.format(thread.dateTime, 'dd-MM-yyyy HH:mm')}">2 days, 8 hours</span></span>
+                                        th:text="${#temporals.format(thread.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
                                 </li>
                                 <li class="list-inline-item">|</li>
                                 <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
-                                </li>
-                                <li class="list-inline-item">|</li>
-                                <li class="list-inline-item">
-                                    <span><i class="fa fa-facebook-square"></i></span>
-                                    <span><i class="fa fa-twitter-square"></i></span>
-                                    <span><i class="fa fa-google-plus-square"></i></span>
                                 </li>
                             </ul>
                             <!--nested-->
@@ -87,132 +81,16 @@
                                 <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                                      th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
                                 <div class="media-body">
-                                    <h5 class="mt-0">Receta 1</h5>
+                                    <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
                                     <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
                                         elit. Duis pharetra varius
-                                        quam sit amet vulputate.
                                     </div>
                                     <ul class="list-inline list-unstyled">
-                                        <li class="list-inline-item">by TestAuthor</li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item"><span><i class="fa fa-calendar"></i> 2 days, 8 hours </span>
-                                        </li>
+                                        <li class="list-inline-item">by Anonymous</li>
                                         <li class="list-inline-item">|</li>
                                         <li class="list-inline-item"><span><i
-                                                class="fa fa-comment"></i> 2 comments</span>
-                                        </li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item">
-                                            <span><i class="fa fa-facebook-square"></i></span>
-                                            <span><i class="fa fa-twitter-square"></i></span>
-                                            <span><i class="fa fa-google-plus-square"></i></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="media mt-3">
-                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150">
-                                <div class="media-body">
-                                    <h5 class="mt-0">Receta 1</h5>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam
-                                    sit
-                                    amet vulputate.
-                                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean
-                                    sit
-                                    amet felis
-                                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                                    auctor accumsan.
-                                    Aliquam in felis sit amet augue.
-                                    <ul class="list-inline list-unstyled">
-                                        <li class="list-inline-item">by TestAuthor</li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item"><span><i class="fa fa-calendar"></i> 2 days, 8 hours </span>
-                                        </li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item"><span><i
-                                                class="fa fa-comment"></i> 2 comments</span>
-                                        </li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item">
-                                            <span><i class="fa fa-facebook-square"></i></span>
-                                            <span><i class="fa fa-twitter-square"></i></span>
-                                            <span><i class="fa fa-google-plus-square"></i></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Active</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="media">
-                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150">
-                        <div class="media-body">
-                            <h5 class="mt-0">Receta 1</h5>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit
-                            amet vulputate.
-                            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit
-                            amet felis
-                            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                            auctor accumsan.
-                            Aliquam in felis sit amet augue.
-                            <ul class="list-inline list-unstyled">
-                                <li class="list-inline-item">by TestAuthor</li>
-                                <li class="list-inline-item"><span><i
-                                        class="fa fa-calendar"></i> 2 days, 8 hours </span>
-                                </li>
-                                <li class="list-inline-item">|</li>
-                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> 2 comments</span>
-                                </li>
-                                <li class="list-inline-item">|</li>
-                                <li class="list-inline-item">
-                                    <span><i class="fa fa-facebook-square"></i></span>
-                                    <span><i class="fa fa-twitter-square"></i></span>
-                                    <span><i class="fa fa-google-plus-square"></i></span>
-                                </li>
-                            </ul>
-                            <!--nested-->
-                            <div class="media mt-3">
-                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150">
-                                <div class="media-body">
-                                    <h5 class="mt-0">Receta 1</h5>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam
-                                    sit
-                                    amet vulputate.
-                                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean
-                                    sit
-                                    amet felis
-                                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                                    auctor accumsan.
-                                    Aliquam in felis sit amet augue.
-                                    <ul class="list-inline list-unstyled">
-                                        <li class="list-inline-item">by TestAuthor</li>
-                                        <li class="list-inline-item"><span><i class="fa fa-calendar"></i> 2 days, 8 hours </span>
-                                        </li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item"><span><i
-                                                class="fa fa-comment"></i> 2 comments</span>
-                                        </li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item">
-                                            <span><i class="fa fa-facebook-square"></i></span>
-                                            <span><i class="fa fa-twitter-square"></i></span>
-                                            <span><i class="fa fa-google-plus-square"></i></span>
+                                                class="fa fa-calendar"></i> <span
+                                                th:text="${#temporals.format(post.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -224,5 +102,6 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" th:src="@{/js/threadAjax.js}"></script>
 </body>
 </html>
