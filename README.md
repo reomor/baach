@@ -34,3 +34,5 @@ https://www.jeejava.com/spring-data-jpa-entity-graphs/
 
 drag and drop
 https://bitwiser.in/2015/08/08/creating-dropzone-for-drag-drop-file.html
+
+https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp
