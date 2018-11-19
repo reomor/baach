@@ -38,7 +38,7 @@
             </li>
         </ul>
         <div th:if="${#authorization.expression('isAuthenticated()')}">
-            <span class="navbar-text" th:text="${#authentication.principal}"></span>
+            <span class="navbar-text" th:text="${#authentication.name}"></span>
         </div>
         <div th:unless="${#authorization.expression('isAuthenticated()')}">
             <span class="navbar-text" th:text="${#authentication.principal}"></span>

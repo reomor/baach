@@ -58,27 +58,22 @@
                 </div>
                 <div class="card-body">
                     <div class="media">
-                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150"
+                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                              th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
                         <div class="media-body">
                             <h5 class="mt-0">Receta 1</h5>
                             <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Duis pharetra varius quam sit
-                                amet vulputate.
-                                Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit
-                                amet felis
-                                dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                                auctor accumsan.
-                                Aliquam in felis sit amet augue.
                             </div>
                             <ul class="list-inline list-unstyled">
                                 <li class="list-inline-item">by TestAuthor</li>
                                 <li class="list-inline-item">|</li>
                                 <li class="list-inline-item"><span><i
-                                        class="fa fa-calendar"></i> 2 days, 8 hours </span>
+                                        class="fa fa-calendar"></i> <span
+                                        th:text="${#temporals.format(thread.dateTime, 'dd-MM-yyyy HH:mm')}">2 days, 8 hours</span></span>
                                 </li>
                                 <li class="list-inline-item">|</li>
-                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> 2 comments</span>
+                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
                                 </li>
                                 <li class="list-inline-item">|</li>
                                 <li class="list-inline-item">
@@ -89,22 +84,13 @@
                             </ul>
                             <!--nested-->
                             <div class="media mt-3" th:each="post : ${thread.posts}">
-                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150"
+                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                                      th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
                                 <div class="media-body">
                                     <h5 class="mt-0">Receta 1</h5>
-                                    <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius
-                                        quam
-                                        sit
-                                        amet vulputate.
-                                        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.
-                                        Aenean
-                                        sit
-                                        amet felis
-                                        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis
-                                        elementum
-                                        auctor accumsan.
-                                        Aliquam in felis sit amet augue.
+                                    <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                        elit. Duis pharetra varius
+                                        quam sit amet vulputate.
                                     </div>
                                     <ul class="list-inline list-unstyled">
                                         <li class="list-inline-item">by TestAuthor</li>
