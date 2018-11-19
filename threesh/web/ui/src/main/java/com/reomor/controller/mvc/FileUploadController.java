@@ -1,4 +1,4 @@
-package com.reomor.rest;
+package com.reomor.controller.mvc;
 
 import com.reomor.core.exception.StorageFileNotFoundException;
 import com.reomor.impl.repository.FileSystemStorage;
@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
@@ -27,34 +28,38 @@ public class FileUploadController {
     }
 
     @GetMapping("/files")
-    public String listUploadedFiles(Model model) throws IOException {
+    public String listUploadedFiles(HttpServletRequest request, Model model) throws IOException {
 
         model.addAttribute("files", fileSystemStorage.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                        "serveFile", path.getFileName().toString()).build().toString())
+                        "serveFile", "test", path.getFileName().toString()).build().toString())
                 .collect(Collectors.toList()));
 
         return "uploadForm";
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/files/{thread:.+}/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> serveFile(@PathVariable String thread, @PathVariable String filename) {
 
-        Resource file = fileSystemStorage.loadAsResource(filename);
+        Resource file = fileSystemStorage.loadAsResource(thread, filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+    public String handleFileUpload(
+            @RequestParam("file") MultipartFile file,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
+    ) {
 
         fileSystemStorage.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+        String referrer = request.getHeader("Referer");
 
-        return "redirect:/";
+        return "redirect:" + referrer;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

@@ -72,9 +72,9 @@ public class FileSystemStorageImpl implements FileSystemStorage {
     }
 
     @Override
-    public Resource loadAsResource(String filename) {
+    public Resource loadAsResource(String directory, String filename) {
         try {
-            Path file = rootLocation.resolve(filename);
+            Path file = rootLocation.resolve(directory + "/" + filename);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;

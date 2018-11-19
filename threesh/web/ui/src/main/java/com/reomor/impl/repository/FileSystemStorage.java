@@ -12,5 +12,5 @@ public interface FileSystemStorage {
 
     Stream<Path> loadAll();
 
-    Resource loadAsResource(String filename);
+   Resource loadAsResource(String directory, String filename);
 }
