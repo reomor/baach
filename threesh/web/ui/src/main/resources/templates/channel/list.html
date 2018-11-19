@@ -47,8 +47,8 @@
             </nav>
         </div>
         <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
-            <h5 class="bd-title">aaa channel</h5>
-            <div class="card mb-3">
+            <h5 class="bd-title" th:text="${channel.name}">aaa channel</h5>
+            <div class="card mb-3" th:each="thread : ${channel.threads}">
                 <div class="card-header">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-secondary">Left</button>
@@ -58,16 +58,19 @@
                 </div>
                 <div class="card-body">
                     <div class="media">
-                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150">
+                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150"
+                             th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
                         <div class="media-body">
                             <h5 class="mt-0">Receta 1</h5>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit
-                            amet vulputate.
-                            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit
-                            amet felis
-                            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                            auctor accumsan.
-                            Aliquam in felis sit amet augue.
+                            <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Duis pharetra varius quam sit
+                                amet vulputate.
+                                Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit
+                                amet felis
+                                dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
+                                auctor accumsan.
+                                Aliquam in felis sit amet augue.
+                            </div>
                             <ul class="list-inline list-unstyled">
                                 <li class="list-inline-item">by TestAuthor</li>
                                 <li class="list-inline-item">|</li>
@@ -85,19 +88,24 @@
                                 </li>
                             </ul>
                             <!--nested-->
-                            <div class="media mt-3">
-                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150">
+                            <div class="media mt-3" th:each="post : ${thread.posts}">
+                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150"
+                                     th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
                                 <div class="media-body">
                                     <h5 class="mt-0">Receta 1</h5>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam
-                                    sit
-                                    amet vulputate.
-                                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean
-                                    sit
-                                    amet felis
-                                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum
-                                    auctor accumsan.
-                                    Aliquam in felis sit amet augue.
+                                    <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius
+                                        quam
+                                        sit
+                                        amet vulputate.
+                                        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.
+                                        Aenean
+                                        sit
+                                        amet felis
+                                        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis
+                                        elementum
+                                        auctor accumsan.
+                                        Aliquam in felis sit amet augue.
+                                    </div>
                                     <ul class="list-inline list-unstyled">
                                         <li class="list-inline-item">by TestAuthor</li>
                                         <li class="list-inline-item">|</li>

@@ -26,7 +26,7 @@ public class FileUploadController {
         this.fileSystemStorage = fileSystemStorage;
     }
 
-    @GetMapping("/")
+    @GetMapping("/files")
     public String listUploadedFiles(Model model) throws IOException {
 
         model.addAttribute("files", fileSystemStorage.loadAll().map(
@@ -46,7 +46,7 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/")
+    @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
