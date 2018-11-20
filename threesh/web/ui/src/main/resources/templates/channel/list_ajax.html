@@ -35,8 +35,7 @@
     </nav>
 </div>
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="threadReplyModal" tabindex="-1" role="dialog"
-     aria-labelledby="threadReplyModalLabel"
+<div class="modal fade bd-example-modal-lg" id="threadReplyModal" tabindex="-1" role="dialog" aria-labelledby="threadReplyModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -48,13 +47,12 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" id="postThreadForm"
-                      th:action="@{/channel/thread(channel=${channel.id})}" th:method="post" th:object="${postDto}">
-                    <input type="hidden" name="id" id="inputThreadId" th:field="*{threadId}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" id="postThreadForm">
+                    <input type="hidden" name="id" id="inputThreadId">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="inputPostMessage">Message:</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5" th:field="*{message}"></textarea>
+                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -63,11 +61,11 @@
                             <input id="inputPostFile" class="form-control-file" type="file" name="file"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="replyThreadSave()">Reply</button>
             </div>
         </div>
     </div>
@@ -90,9 +88,7 @@
             <div class="card mb-3" th:each="thread : ${channel.threads}">
                 <div class="card-header">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary" th:onclick="'replyThread(' + ${thread.id} + ')'"
-                                onclick="">Reply thread
-                        </button>
+                        <button type="button" class="btn btn-secondary" th:onclick="'replyThread(' + ${thread.id} + ')'" onclick="">Reply thread</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -112,8 +108,7 @@
                                         th:text="${#temporals.format(thread.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
                                 </li>
                                 <li class="list-inline-item">|</li>
-                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span
-                                        th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
+                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
                                 </li>
                             </ul>
                             <!--nested-->
