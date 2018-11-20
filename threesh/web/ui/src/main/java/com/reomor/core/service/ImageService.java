@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
 
-    Image store(MultipartFile file);
+    Image store(String directory, MultipartFile file);
 
     Image load(String filename);
 }

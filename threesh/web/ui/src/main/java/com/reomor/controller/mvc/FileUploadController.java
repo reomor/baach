@@ -54,7 +54,7 @@ public class FileUploadController {
             RedirectAttributes redirectAttributes
     ) {
 
-        fileSystemStorage.store(file);
+        fileSystemStorage.store("/", file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         String referrer = request.getHeader("Referer");

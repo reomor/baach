@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageStorage {
 
-    Image store(MultipartFile file);
+    Image store(String directory, MultipartFile file);
 
     Image load(String filename);
 }

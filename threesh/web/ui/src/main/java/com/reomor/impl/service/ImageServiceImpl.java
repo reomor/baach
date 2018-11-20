@@ -16,8 +16,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image store(MultipartFile file) {
-        return imageStorage.store(file);
+    public Image store(String directory, MultipartFile file) {
+        return imageStorage.store(directory, file);
     }
 
     @Override

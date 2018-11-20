@@ -1,6 +1,7 @@
 package com.reomor.impl.repository;
 
 import com.reomor.configuration.StorageProperties;
+import com.reomor.core.domain.Image;
 import com.reomor.core.exception.StorageException;
 import com.reomor.core.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class FileSystemStorageImpl implements FileSystemStorage {
     }
 
     @Override
-    public String store(MultipartFile file) {
+    public Image store(String directory, MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -50,10 +51,11 @@ public class FileSystemStorageImpl implements FileSystemStorage {
                                 + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, this.rootLocation.resolve(filename),
+                Files.createDirectories(this.rootLocation.resolve(directory));
+                Files.copy(inputStream, this.rootLocation.resolve(directory + "/" + filename),
                         StandardCopyOption.REPLACE_EXISTING);
             }
-            return filename;
+            return new Image(null, directory, filename);
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }

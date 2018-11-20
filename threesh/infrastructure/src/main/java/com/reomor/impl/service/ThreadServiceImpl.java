@@ -2,19 +2,13 @@ package com.reomor.impl.service;
 
 import com.reomor.core.domain.Post;
 import com.reomor.core.domain.Thread;
-import com.reomor.core.repository.ImageStorage;
 import com.reomor.core.service.ThreadService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class ThreadServiceImpl implements ThreadService {
-
-    private final ImageStorage imageStorage;
-
-    public ThreadServiceImpl(ImageStorage imageStorage) {
-        this.imageStorage = imageStorage;
-    }
 
     @Override
     public Thread create(Thread thread) {

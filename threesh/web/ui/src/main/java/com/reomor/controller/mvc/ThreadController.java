@@ -1,5 +1,6 @@
 package com.reomor.controller.mvc;
 
+import com.reomor.core.domain.Image;
 import com.reomor.core.service.ImageService;
 import com.reomor.core.service.ThreadService;
 import com.reomor.dto.PostDto;
@@ -22,7 +23,7 @@ public class ThreadController {
 
     @PostMapping("/channel/thread")
     public String addPostInThread(@RequestParam("channel") Long channelId, @ModelAttribute PostDto postDto, @RequestParam(required = false) MultipartFile file) {
-        imageService.store(file);
+        Image storedImage = imageService.store(postDto.threadIdAsString(), file);
         return "redirect:/channel?id=" + channelId;
     }
 }

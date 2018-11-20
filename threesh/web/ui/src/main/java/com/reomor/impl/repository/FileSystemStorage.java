@@ -1,5 +1,6 @@
 package com.reomor.impl.repository;
 
+import com.reomor.core.domain.Image;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 
 public interface FileSystemStorage {
 
-    String store(MultipartFile file);
+    Image store(String directory, MultipartFile file);
 
     Stream<Path> loadAll();
 

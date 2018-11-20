@@ -19,4 +19,8 @@ public class PostDto {
     public Post toPost(Image image) {
         return new Post(null, this.message, LocalDateTime.now(), null);
     }
+
+    public String threadIdAsString() {
+        return String.valueOf(threadId);
+    }
 }
