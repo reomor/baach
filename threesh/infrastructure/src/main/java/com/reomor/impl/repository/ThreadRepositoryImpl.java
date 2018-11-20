@@ -3,6 +3,7 @@ package com.reomor.impl.repository;
 import com.reomor.core.domain.Post;
 import com.reomor.core.domain.Thread;
 import com.reomor.core.repository.ThreadRepository;
+import com.reomor.impl.entity.ImageEntity;
 import com.reomor.impl.entity.PostEntity;
 import com.reomor.impl.entity.ThreadEntity;
 import com.reomor.impl.mapper.DomainToEntityMapper;
@@ -18,6 +19,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
 
     private final JpaThreadRepository threadRepository;
     private final JpaPostRepository postRepository;
+    private final JpaImageRepository imageRepository;
     private final DomainToEntityMapper domainToEntityMapper;
     private final EntityToDomainMapper entityToDomainMapper;
 
@@ -25,11 +27,13 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     public ThreadRepositoryImpl(
             JpaThreadRepository threadRepository,
             JpaPostRepository postRepository,
+            JpaImageRepository imageRepository,
             DomainToEntityMapper domainToEntityMapper,
             EntityToDomainMapper entityToDomainMapper
     ) {
         this.threadRepository = threadRepository;
         this.postRepository = postRepository;
+        this.imageRepository = imageRepository;
         this.domainToEntityMapper = domainToEntityMapper;
         this.entityToDomainMapper = entityToDomainMapper;
     }
@@ -61,8 +65,12 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     }
 
     @Override
-    public Post createPost(Post post) {
+    public Post createPost(Long threadId, Long imageId, Post post) {
+        ThreadEntity threadEntity = threadRepository.getOne(threadId);
+        ImageEntity imageEntity = imageRepository.getOne(imageId);
         PostEntity postEntity = domainToEntityMapper.convertPost(post);
+        postEntity.setThread(threadEntity);
+        postEntity.setImage(imageEntity);
         return entityToDomainMapper.convertPost(postRepository.save(postEntity));
     }
 
@@ -77,8 +85,8 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     }
 
     @Override
-    public Post updatePost(Post post) {
-        return createPost(post);
+    public Post updatePost(Long threadId, Long imageId, Post post) {
+        return createPost(threadId, imageId, post);
     }
 
     @Override

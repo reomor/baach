@@ -13,10 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostDto {
 
-    private Integer threadId;
+    private Long threadId;
+    private Long imageId;
     private String message;
 
-    public Post toPost(Image image) {
+    public Post toPost() {
         return new Post(null, this.message, LocalDateTime.now(), null);
     }
 

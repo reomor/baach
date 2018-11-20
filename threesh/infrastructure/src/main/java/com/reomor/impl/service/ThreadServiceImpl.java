@@ -2,13 +2,22 @@ package com.reomor.impl.service;
 
 import com.reomor.core.domain.Post;
 import com.reomor.core.domain.Thread;
+import com.reomor.core.repository.ThreadRepository;
 import com.reomor.core.service.ThreadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ThreadServiceImpl implements ThreadService {
+
+    private final ThreadRepository threadRepository;
+
+    @Autowired
+    public ThreadServiceImpl(ThreadRepository threadRepository) {
+        this.threadRepository = threadRepository;
+    }
 
     @Override
     public Thread create(Thread thread) {
@@ -36,8 +45,8 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Post createPost(Post post) {
-        return null;
+    public Post createPost(Long threadId, Long imageId, Post post) {
+        return threadRepository.createPost(threadId, imageId, post);
     }
 
     @Override
@@ -51,7 +60,7 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Post updatePost(Post post) {
+    public Post updatePost(Long threadId, Long imageId, Post post) {
         return null;
     }
 

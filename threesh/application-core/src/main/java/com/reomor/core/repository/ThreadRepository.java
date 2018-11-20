@@ -17,13 +17,13 @@ public interface ThreadRepository {
 
     List<Thread> findAllThreadsInChannel(Long channelId);
 
-    Post createPost(Post post);
+    Post createPost(Long threadId, Long imageId, Post post);
 
     Post getPost(Long id);
 
     void deletePost(Post post);
 
-    Post updatePost(Post post);
+    Post updatePost(Long threadId, Long imageId, Post post);
 
     List<Post> getAllPostsInThread(Long threadId);
 }
