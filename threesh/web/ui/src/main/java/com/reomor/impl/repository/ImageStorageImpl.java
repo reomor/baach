@@ -3,6 +3,7 @@ package com.reomor.impl.repository;
 import com.reomor.configuration.StorageProperties;
 import com.reomor.core.domain.Image;
 import com.reomor.core.repository.ImageStorage;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +19,7 @@ public class ImageStorageImpl implements ImageStorage {
     }
 
     @Override
-    public Image store(Image image) {
+    public Image store(MultipartFile file) {
         return null;
     }
 

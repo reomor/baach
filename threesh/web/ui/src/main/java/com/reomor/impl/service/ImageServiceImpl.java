@@ -4,6 +4,7 @@ import com.reomor.core.domain.Image;
 import com.reomor.core.repository.ImageStorage;
 import com.reomor.core.service.ImageService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -15,8 +16,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image store(Image image) {
-        return null;
+    public Image store(MultipartFile file) {
+        return imageStorage.store(file);
     }
 
     @Override
