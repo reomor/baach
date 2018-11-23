@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService, UserAuthorizationService {
     }
 
     @Override
+    public User register(String name, String email, String password) {
+        return register(name, email, password, UserRoles.ROLE_USER);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findOneByEmail(email);
     }
