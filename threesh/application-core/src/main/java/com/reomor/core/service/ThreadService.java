@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface ThreadService {
 
-    Thread create(Thread thread);
+    Thread create(Long channelId, Thread thread);
 
     Thread get(Long id);
 
     void delete(Thread thread);
 
-    Thread update(Thread thread);
+    Thread update(Long channelId, Thread thread);
 
     List<Thread> findAllThreadsInChannel(Long channelId);
 

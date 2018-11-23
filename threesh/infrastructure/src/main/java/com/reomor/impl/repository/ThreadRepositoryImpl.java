@@ -20,6 +20,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     private final JpaThreadRepository threadRepository;
     private final JpaPostRepository postRepository;
     private final JpaImageRepository imageRepository;
+    private final JpaChannelRepository channelRepository;
     private final DomainToEntityMapper domainToEntityMapper;
     private final EntityToDomainMapper entityToDomainMapper;
 
@@ -28,20 +29,27 @@ public class ThreadRepositoryImpl implements ThreadRepository {
             JpaThreadRepository threadRepository,
             JpaPostRepository postRepository,
             JpaImageRepository imageRepository,
+            JpaChannelRepository channelRepository,
             DomainToEntityMapper domainToEntityMapper,
             EntityToDomainMapper entityToDomainMapper
     ) {
         this.threadRepository = threadRepository;
         this.postRepository = postRepository;
         this.imageRepository = imageRepository;
+        this.channelRepository = channelRepository;
         this.domainToEntityMapper = domainToEntityMapper;
         this.entityToDomainMapper = entityToDomainMapper;
     }
 
     @Override
-    public Thread create(Thread thread) {
+    public Thread create(Long channelId, Thread thread) {
         ThreadEntity threadEntity = domainToEntityMapper.convertThread(thread);
-        return entityToDomainMapper.convertThread(threadRepository.save(threadEntity));
+        threadEntity.setChannel(channelRepository.getOne(channelId));
+        ThreadEntity savedEntity = threadRepository.save(threadEntity);
+        ImageEntity savedEntityImage = savedEntity.getImage();
+        savedEntityImage.setDirectory(String.valueOf(threadEntity.getId()));
+        imageRepository.save(savedEntityImage);
+        return entityToDomainMapper.convertThread(threadEntity);
     }
 
     @Override
@@ -55,8 +63,8 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     }
 
     @Override
-    public Thread update(Thread thread) {
-        return create(thread);
+    public Thread update(Long channelId, Thread thread) {
+        return create(channelId, thread);
     }
 
     @Override

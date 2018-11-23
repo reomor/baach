@@ -4,7 +4,9 @@ import com.reomor.core.domain.*;
 import com.reomor.core.domain.Thread;
 import com.reomor.impl.entity.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +27,16 @@ public class EntityToDomainMapper {
     }
 
     public Thread convertThread(ThreadEntity threadEntity) {
-        Image image = convertImage(threadEntity.getImage());
-        List<Post> posts = threadEntity.getPosts().stream().map(this::convertPost).collect(Collectors.toList());
+        Image image = null;
+        if(threadEntity.getImage() != null) {
+             image = convertImage(threadEntity.getImage());
+        }
+        List<Post> posts = null;
+        if(!CollectionUtils.isEmpty(threadEntity.getPosts())) {
+             posts = threadEntity.getPosts().stream().map(this::convertPost).collect(Collectors.toList());
+        } else {
+            posts = Collections.emptyList();
+        }
         return new Thread(threadEntity.getId(), threadEntity.getMessage(), threadEntity.getDateTime(), image, posts);
     }
 

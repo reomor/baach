@@ -31,6 +31,11 @@ public class ImageStorageImpl implements ImageStorage {
 
     @Override
     public Image store(String directory, MultipartFile file) {
+        return fileSystemStorage.store(directory, file);
+    }
+
+    @Override
+    public Image storeAndSave(String directory, MultipartFile file) {
         Image storedImage = fileSystemStorage.store(directory, file);
         ImageEntity imageEntity = jpaImageRepository.save(domainToEntityMapper.convertImage(storedImage));
         return entityToDomainMapper.convertImage(imageEntity);

@@ -8,5 +8,7 @@ public interface ImageStorage {
 
     Image store(String directory, MultipartFile file);
 
+    Image storeAndSave(String directory, MultipartFile file);
+
     Image load(String filename);
 }

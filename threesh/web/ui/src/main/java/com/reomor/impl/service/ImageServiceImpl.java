@@ -21,6 +21,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Image storeAndSave(String directory, MultipartFile file) {
+        return imageStorage.storeAndSave(directory, file);
+    }
+
+    @Override
     public Image load(String filename) {
         return null;
     }

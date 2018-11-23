@@ -7,5 +7,7 @@ public interface ImageService {
 
     Image store(String directory, MultipartFile file);
 
+    Image storeAndSave(String directory, MultipartFile file);
+
     Image load(String filename);
 }

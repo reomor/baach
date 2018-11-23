@@ -20,8 +20,8 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Thread create(Thread thread) {
-        return null;
+    public Thread create(Long channelId, Thread thread) {
+        return threadRepository.create(channelId, thread);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public Thread update(Thread thread) {
+    public Thread update(Long channelId, Thread thread) {
         return null;
     }
 

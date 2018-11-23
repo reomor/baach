@@ -4,6 +4,7 @@ import com.reomor.core.domain.*;
 import com.reomor.core.domain.Thread;
 import com.reomor.impl.entity.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +25,14 @@ public class DomainToEntityMapper {
     }
 
     public ThreadEntity convertThread(Thread thread) {
-        ImageEntity imageEntity = convertImage(thread.getImage());
-        List<PostEntity> postEntities = thread.getPosts().stream().map(this::convertPost).collect(Collectors.toList());
+        ImageEntity imageEntity = null;
+        if (thread.getImage() != null) {
+            imageEntity = convertImage(thread.getImage());
+        }
+        List<PostEntity> postEntities = null;
+        if (!CollectionUtils.isEmpty(thread.getPosts())) {
+             postEntities = thread.getPosts().stream().map(this::convertPost).collect(Collectors.toList());
+        }
         return new ThreadEntity(thread.getId(), thread.getMessage(), thread.getDateTime(), imageEntity, postEntities);
     }
 

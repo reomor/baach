@@ -24,9 +24,11 @@ public class ChannelController {
     }
 
     @GetMapping("/channel")
-    public String listPage(@RequestParam("id") Long id, Model model) {
+    public String listPage(@RequestParam(value = "id", required = false) Long id, Model model) {
+        if (id != null) {
+            model.addAttribute("channel", channelService.getWithThreads(id));
+        }
         model.addAttribute("channels", channelService.getAll());
-        model.addAttribute("channel", channelService.getWithThreads(id));
         model.addAttribute("postDto", new PostDto());
         return "channel/list";
     }
