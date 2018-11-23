@@ -35,6 +35,7 @@ public class ThreadEntity {
     private ImageEntity image;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OrderBy("id DESC")
     private List<PostEntity> posts;
 
     public ThreadEntity(Long id, String message, LocalDateTime dateTime, ImageEntity image, List<PostEntity> posts) {
