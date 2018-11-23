@@ -54,7 +54,8 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="inputPostMessage">Message:</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5" th:field="*{message}"></textarea>
+                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
+                                      th:field="*{message}"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -79,9 +80,10 @@
             <nav class="bd-links" id="bd-nav">
                 <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
                     <li class="list-group-item">
-                        <a class="bd-toc-link" href="/channel?channel=123" th:text="${channel.name}" th:href="@{/channel(id=${channel.id})}">
-                        aaa
-                    </a></li>
+                        <a class="bd-toc-link" href="/channel?channel=123" th:text="${channel.name}"
+                           th:href="@{/channel(id=${channel.id})}">
+                            aaa
+                        </a></li>
                 </ul>
             </nav>
         </div>
@@ -95,9 +97,14 @@
             <div class="card mb-3" th:each="thread : ${channel.threads}">
                 <div class="card-header">
                     <div class="btn-toolbar justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-secondary" th:onclick="'replyThread(' + ${thread.id} + ')'"
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary"
+                                    th:onclick="'replyThread(' + ${thread.id} + ')'"
                                     onclick="">Reply thread
+                            </button>
+                            <button type="button" class="btn btn-secondary" th:onclick=""
+                                    th:if="${#authorization.expression('isAuthenticated()')}"
+                                    onclick="">Delete thread
                             </button>
                         </div>
                     </div>
@@ -107,7 +114,7 @@
                         <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                              th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
                         <div class="media-body">
-                            <h5 class="mt-0" th:text="${thread.id}">Receta 1</h5>
+                            <h5 class="btn-group mt-0" th:text="${thread.id}">Receta 1</h5>
                             <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Duis pharetra varius
                             </div>
@@ -128,7 +135,19 @@
                                 <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
                                      th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
                                 <div class="media-body">
-                                    <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
+                                    <div class="btn-toolbar justify-content-between">
+                                        <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-secondary"
+                                                    th:onclick=""
+                                                    onclick="">Reply post
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" th:onclick=""
+                                                    th:if="${#authorization.expression('isAuthenticated()')}"
+                                                    onclick="">Delete post
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
                                         elit. Duis pharetra varius
                                     </div>
