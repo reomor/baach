@@ -10,6 +10,8 @@ public interface UserAuthorizationService extends UserDetailsService {
 
     User register(String name, String email, String password, UserRoles role, UserRoles... roles);
 
+    User register(String name, String email, String password);
+
     UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
 
     User findAndAuthenticate(String email, String providedPassword);

@@ -36,3 +36,13 @@ drag and drop
 https://bitwiser.in/2015/08/08/creating-dropzone-for-drag-drop-file.html
 
 https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp
+
+https://www.baeldung.com/spring-security-logout
+
+https://www.baeldung.com/jpa-sort
+
+https://getbootstrap.com/docs/4.1/components/button-group/
+
+http://websystique.com/springmvc/spring-mvc-4-and-spring-security-4-integration-example/
+
+https://stackoverflow.com/questions/11456773/get-the-next-value-from-sequencegenerator
