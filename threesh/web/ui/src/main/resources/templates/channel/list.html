@@ -77,22 +77,29 @@
     <div class="row flex-xl-nowrap">
         <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
             <nav class="bd-links" id="bd-nav">
-                <div class="bd-toc-item" th:each="channel : ${channels}" th:object="${channel}">
-                    <a class="bd-toc-link" href="/channel?channel=123"
-                       th:text="${channel.name}" th:href="@{/channel(id=${channel.id})}">
+                <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
+                    <li class="list-group-item">
+                        <a class="bd-toc-link" href="/channel?channel=123" th:text="${channel.name}" th:href="@{/channel(id=${channel.id})}">
                         aaa
-                    </a>
-                </div>
+                    </a></li>
+                </ul>
             </nav>
         </div>
         <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
             <h5 class="bd-title" th:text="${channel.name} + ' channel'">aaa channel</h5>
+            <div class="btn-group mb-2" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" th:onclick="'replyThread(\'\')'"
+                        onclick="">Create thread
+                </button>
+            </div>
             <div class="card mb-3" th:each="thread : ${channel.threads}">
                 <div class="card-header">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary" th:onclick="'replyThread(' + ${thread.id} + ')'"
-                                onclick="">Reply thread
-                        </button>
+                    <div class="btn-toolbar justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-secondary" th:onclick="'replyThread(' + ${thread.id} + ')'"
+                                    onclick="">Reply thread
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

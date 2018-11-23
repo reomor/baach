@@ -31,20 +31,33 @@
                 <a class="nav-link" href="#" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" th:href="@{/login}">Login</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#" th:href="@{/channel}">Channels</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" th:href="@{/user}">Users</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/image}">Images</a>
+            </li>
         </ul>
         <div th:if="${#authorization.expression('isAuthenticated()')}">
-            <span class="navbar-text" th:text="${#authentication.name}"></span>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/logout}">Logout</a>
+                </li>
+                <span class="navbar-text" th:text="${#authentication.name}"></span>
+            </ul>
         </div>
         <div th:unless="${#authorization.expression('isAuthenticated()')}">
-            <span class="navbar-text" th:text="${#authentication.principal}"></span>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/registration}">Registration</a>
+                </li>
+                <span class="navbar-text" th:text="${#authentication.principal}"></span>
+            </ul>
         </div>
     </div>
 </nav>
