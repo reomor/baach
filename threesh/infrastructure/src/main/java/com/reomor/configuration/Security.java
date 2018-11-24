@@ -50,6 +50,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 if (authenticatedUser == null) {
                     throw new BadCredentialsException("Username/Password does not match for " + email);
                 }
+                if (!authenticatedUser.isEnabled()) {
+                    throw new BadCredentialsException("User registration is not confirmed by link in email" + email);
+                }
                 return new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
             }
 
