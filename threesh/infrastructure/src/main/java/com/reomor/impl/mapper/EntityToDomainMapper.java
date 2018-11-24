@@ -19,7 +19,7 @@ public class EntityToDomainMapper {
     }
 
     public User convertUser(UserEntity userEntity) {
-        return new User(userEntity.getName(), userEntity.getEmail(), userEntity.getPasswordHash(), userEntity.getPasswordSalt(), userEntity.isEnabled(), userEntity.getRolesList());
+        return new User(userEntity.getId(), userEntity.getName(), userEntity.getEmail(), userEntity.getPasswordHash(), userEntity.getPasswordSalt(), userEntity.isEnabled(), userEntity.getRolesList());
     }
 
     public Image convertImage(ImageEntity imageEntity) {

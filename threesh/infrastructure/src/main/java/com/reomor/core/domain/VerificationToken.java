@@ -20,14 +20,21 @@ public class VerificationToken {
     private Date expiryDate;
 
     public VerificationToken(String token) {
+        this.id = null;
         this.token = token;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
     public VerificationToken(String token, User user) {
+        this.id = null;
         this.token = token;
         this.user = user;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
+    }
+
+    public boolean isExpired() {
+        Calendar calendar = Calendar.getInstance();
+        return this.expiryDate.getTime() - calendar.getTime().getTime() <= 0;
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes) {

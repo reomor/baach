@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 public class DomainToEntityMapper {
 
     public VerificationTokenEntity convertToken(VerificationToken token) {
-        UserEntity userEntity = convertUser(token.getUser());
-        return new VerificationTokenEntity(token.getId(), token.getToken(), userEntity, token.getExpiryDate());
+        return new VerificationTokenEntity(token.getId(), token.getToken(), null, token.getExpiryDate());
     }
 
     public UserEntity convertUser(User user) {
