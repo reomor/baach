@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String name, String email, String password, UserRoles role, UserRoles... roles) {
-        if(Objects.nonNull(userRepository.findOneByEmail(email))) {
+        if (Objects.nonNull(userRepository.findOneByEmail(email))) {
             throw new RuntimeException("User with this email has been registered before");
         }
         String passwordSalt = UUID.randomUUID().toString();
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional //for async event handling
     public void createVerificationToken(User user, String token) {
         tokenRepository.save(user, token);
     }
