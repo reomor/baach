@@ -12,8 +12,13 @@ import java.util.stream.Collectors;
 @Component
 public class DomainToEntityMapper {
 
+    public VerificationTokenEntity convertToken(VerificationToken token) {
+        UserEntity userEntity = convertUser(token.getUser());
+        return new VerificationTokenEntity(token.getId(), token.getToken(), userEntity, token.getExpiryDate());
+    }
+
     public UserEntity convertUser(User user) {
-        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPasswordHash(), user.getPasswordSalt(), user.getRolesList());
+        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPasswordHash(), user.getPasswordSalt(), user.isEnabled(), user.getRolesList());
     }
 
     public ImageEntity convertImage(Image image) {

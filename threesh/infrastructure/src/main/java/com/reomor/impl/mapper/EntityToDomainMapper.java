@@ -13,8 +13,13 @@ import java.util.stream.Collectors;
 @Component
 public class EntityToDomainMapper {
 
+    public VerificationToken convertToken(VerificationTokenEntity tokenEntity) {
+        User user = convertUser(tokenEntity.getUser());
+        return new VerificationToken(tokenEntity.getId(), tokenEntity.getToken(), user, tokenEntity.getExpiryDate());
+    }
+
     public User convertUser(UserEntity userEntity) {
-        return new User(userEntity.getName(), userEntity.getEmail(), userEntity.getPasswordHash(), userEntity.getPasswordSalt(), userEntity.getRolesList());
+        return new User(userEntity.getName(), userEntity.getEmail(), userEntity.getPasswordHash(), userEntity.getPasswordSalt(), userEntity.isEnabled(), userEntity.getRolesList());
     }
 
     public Image convertImage(ImageEntity imageEntity) {
