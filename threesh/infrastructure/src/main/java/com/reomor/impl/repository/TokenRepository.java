@@ -8,4 +8,6 @@ public interface TokenRepository {
     VerificationToken findByToken(String token);
 
     VerificationToken findByUser(User user);
+
+    VerificationToken save(User user, String token);
 }

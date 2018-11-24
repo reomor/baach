@@ -2,6 +2,8 @@ package com.reomor.impl.service;
 
 import com.reomor.core.domain.User;
 import com.reomor.core.domain.UserRoles;
+import com.reomor.core.domain.VerificationToken;
+import com.reomor.impl.repository.TokenRepository;
 import com.reomor.impl.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,13 +15,15 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserService, UserAuthorizationService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, TokenRepository tokenRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserService, UserAuthorizationService {
         }
         String passwordSalt = UUID.randomUUID().toString();
         String passwordHash = passwordEncoder.encode(password + passwordSalt);
-        User user = new User(name, email, passwordHash, passwordSalt, role, roles);
+        User user = new User(name, email, passwordHash, passwordSalt, false, role, roles);
         return userRepository.create(user);
     }
 
@@ -55,6 +59,16 @@ public class UserServiceImpl implements UserService, UserAuthorizationService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public void createVerificationToken(User user, String token) {
+        tokenRepository.save(user, token);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String token) {
+        return tokenRepository.findByToken(token);
     }
 
     @Override

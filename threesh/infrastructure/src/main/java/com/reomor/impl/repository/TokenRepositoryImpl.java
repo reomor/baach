@@ -12,16 +12,19 @@ import org.springframework.stereotype.Repository;
 public class TokenRepositoryImpl implements TokenRepository {
 
     private final JpaVerificationTokenRepository tokenRepository;
+    private final JpaUserRepository userRepository;
     private final DomainToEntityMapper domainToEntityMapper;
     private final EntityToDomainMapper entityToDomainMapper;
 
     @Autowired
     public TokenRepositoryImpl(
             JpaVerificationTokenRepository tokenRepository,
+            JpaUserRepository userRepository,
             DomainToEntityMapper domainToEntityMapper,
             EntityToDomainMapper entityToDomainMapper
     ) {
         this.tokenRepository = tokenRepository;
+        this.userRepository = userRepository;
         this.domainToEntityMapper = domainToEntityMapper;
         this.entityToDomainMapper = entityToDomainMapper;
     }
@@ -35,5 +38,12 @@ public class TokenRepositoryImpl implements TokenRepository {
     public VerificationToken findByUser(User user) {
         VerificationTokenEntity verificationTokenEntity = tokenRepository.findByUser(domainToEntityMapper.convertUser(user));
         return entityToDomainMapper.convertToken(verificationTokenEntity);
+    }
+
+    @Override
+    public VerificationToken save(User user, String token) {
+        VerificationTokenEntity verificationTokenEntity = domainToEntityMapper.convertToken(new VerificationToken(token, null));
+        verificationTokenEntity.setUser(userRepository.getOne(user.getId()));
+        return entityToDomainMapper.convertToken(tokenRepository.save(verificationTokenEntity));
     }
 }
