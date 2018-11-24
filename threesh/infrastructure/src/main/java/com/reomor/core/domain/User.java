@@ -14,7 +14,6 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails {
 
     private Long id;
@@ -22,14 +21,19 @@ public class User implements UserDetails {
     private String email;
     private String passwordHash;
     private String passwordSalt;
+    private boolean enabled;
     private Set<UserRoles> rolesList;
 
-    public User(String name, String email, String passwordHash, String passwordSalt, UserRoles role, UserRoles ... roles) {
-        this(null, name, email, passwordHash, passwordSalt, EnumSet.of(role, roles));
+    public User() {
+        this.enabled = false;
     }
 
-    public User(String name, String email, String passwordHash, String passwordSalt, Set<UserRoles> rolesList) {
-        this(null, name, email, passwordHash, passwordSalt, rolesList);
+    public User(String name, String email, String passwordHash, String passwordSalt, boolean enabled, UserRoles role, UserRoles ... roles) {
+        this(null, name, email, passwordHash, passwordSalt, enabled, EnumSet.of(role, roles));
+    }
+
+    public User(String name, String email, String passwordHash, String passwordSalt, boolean enabled, Set<UserRoles> rolesList) {
+        this(null, name, email, passwordHash, passwordSalt, enabled, rolesList);
     }
 
     @Override
