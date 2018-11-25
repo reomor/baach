@@ -6,10 +6,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="01" author="reomor">
+    <changeSet id="create-tables" author="reomor">
 
-        <createTable tableName="user" remarks="user entities">
-            <column name="id" type="int">
+        <createSequence sequenceName="user_seq" incrementBy="1" startValue="100"/>
+
+        <createTable tableName="users">
+            <column name="id" type="int" valueComputed="user_seq.nextval">
                 <constraints unique="true" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
@@ -19,7 +21,7 @@
             <column name="enabled" type="boolean"/>
         </createTable>
 
-        <addAutoIncrement tableName="user" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
+        <!--<addAutoIncrement tableName="user" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>-->
 
         <createTable tableName="user_roles">
             <column name="user_id" type="int"/>
@@ -28,7 +30,7 @@
 
         <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
                                  constraintName="user_id_fk"
-                                 referencedTableName="user" referencedColumnNames="id"/>
+                                 referencedTableName="users" referencedColumnNames="id"/>
 
         <createTable tableName="token">
             <column name="token_id" type="int">
@@ -43,7 +45,7 @@
 
         <addForeignKeyConstraint baseTableName="token" baseColumnNames="user_id"
                                  constraintName="token_user_id_fk"
-                                 referencedTableName="user" referencedColumnNames="id"/>
+                                 referencedTableName="users" referencedColumnNames="id"/>
 
         <createTable tableName="image">
             <column name="image_id" type="int">
@@ -64,14 +66,14 @@
 
         <addAutoIncrement tableName="channel" columnName="channel_id" columnDataType="int" startWith="1" incrementBy="1"/>
 
-        <createSequence sequenceName="thread_priority_seq" incrementBy="1" ordered="true" startValue="1"/>
+        <createSequence sequenceName="thread_priority_seq" incrementBy="1" startValue="1"/>
         
         <createTable tableName="thread">
             <column name="thread_id" type="int">
                 <constraints unique="true" primaryKey="true"/>
             </column>
             <column name="message" type="varchar(1024)"/>
-            <column name="priority" type="bigint" defaultValueSequenceNext="thread_priority_seq"/>
+            <column name="priority" type="int" defaultValueSequenceNext="thread_priority_seq"/>
             <column name="date_time" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="channel_id" type="int"/>
             <column name="image_id" type="int"/>

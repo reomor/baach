@@ -46,3 +46,5 @@ https://getbootstrap.com/docs/4.1/components/button-group/
 http://websystique.com/springmvc/spring-mvc-4-and-spring-security-4-integration-example/
 
 https://stackoverflow.com/questions/11456773/get-the-next-value-from-sequencegenerator
+
+https://stackoverflow.com/questions/45782327/org-postgresql-util-psqlexception-error-column-user0-id-does-not-exist-hibe

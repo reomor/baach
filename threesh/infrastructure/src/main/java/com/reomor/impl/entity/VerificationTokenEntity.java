@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TOKEN")
+@Table(name = "token")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

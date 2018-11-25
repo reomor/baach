@@ -10,21 +10,33 @@ import javax.persistence.*;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-
+// https://stackoverflow.com/questions/45782327/org-postgresql-util-psqlexception-error-column-user0-id-does-not-exist-hibe
 @Entity
-@Table(name = "USER")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password_hash")
     private String passwordHash;
+
+    @Column(name = "password_salt")
     private String passwordSalt;
+
+    @Column(name = "enabled")
     private boolean enabled;
 
     @Enumerated(EnumType.STRING)

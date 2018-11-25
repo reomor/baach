@@ -61,9 +61,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
         </dependency>
 
         <!-- TEST -->
@@ -73,8 +73,5 @@
             <scope>test</scope>
         </dependency>
 
-
-
     </dependencies>
-
 </project>

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "POST")
+@Table(name = "post")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

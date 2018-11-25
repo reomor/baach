@@ -46,6 +46,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     public Thread create(Long channelId, Thread thread) {
         ThreadEntity threadEntity = domainToEntityMapper.convertThread(thread);
         threadEntity.setChannel(channelRepository.getOne(channelId));
+        threadEntity.setPriority(getNextSeriesId());
         ThreadEntity savedEntity = threadRepository.save(threadEntity);
         ImageEntity savedEntityImage = savedEntity.getImage();
         savedEntityImage.setDirectory(String.valueOf(threadEntity.getId()));
