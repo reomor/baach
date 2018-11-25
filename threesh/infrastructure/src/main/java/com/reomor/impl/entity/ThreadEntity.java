@@ -27,6 +27,10 @@ public class ThreadEntity {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "priority")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "thread_priority_seq")
+    private Long priority;
+
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
