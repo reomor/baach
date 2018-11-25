@@ -67,7 +67,7 @@ public class RegistrationController {
             return "redirect:/login";
         }
         log.info("Successfully registered");
-        redirectAttributes.addFlashAttribute("alertSuccess", "Successfully registered. Please, login :)");
+        redirectAttributes.addFlashAttribute("alertSuccess", "Successfully registered. Please, confirm registration by link in email :)");
         return "redirect:/login";
     }
 

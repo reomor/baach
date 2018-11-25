@@ -29,19 +29,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String name, String email, String password, UserRoles role, UserRoles... roles) {
+    public User register(String name, String email, String password, boolean enable, UserRoles role, UserRoles... roles) {
         if (Objects.nonNull(userRepository.findOneByEmail(email))) {
             throw new RuntimeException("User with this email has been registered before");
         }
         String passwordSalt = UUID.randomUUID().toString();
         String passwordHash = passwordEncoder.encode(password + passwordSalt);
-        User user = new User(name, email, passwordHash, passwordSalt, false, role, roles);
+        User user = new User(name, email, passwordHash, passwordSalt, enable, role, roles);
         return userRepository.create(user);
     }
 
     @Override
     public User register(String name, String email, String password) {
-        return register(name, email, password, UserRoles.ROLE_USER);
+        return register(name, email, password, false, UserRoles.ROLE_USER);
     }
 
     @Override

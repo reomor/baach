@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserAuthorizationService extends UserDetailsService {
 
-    User register(String name, String email, String password, UserRoles role, UserRoles... roles);
+    User register(String name, String email, String password, boolean enable, UserRoles role, UserRoles... roles);
 
     User register(String name, String email, String password);
 
