@@ -18,7 +18,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.reomor" level="debug"/>
+    <!--<logger name="com.reomor" level="debug"/>-->
 
     <root level="debug">
         <appender-ref ref="file"/>

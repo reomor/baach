@@ -6,10 +6,26 @@ mvn clean && mvnw install
 mvnw spring-boot:run -pl threesh/spring-application
 ```
 
-build docker
+build docker in directory with Dockerfile in
 ```
 docker build -t <image-tag> .
+docker images
+docker run -p 80:8080 web
 ```
+heroku CLI in directory with Dockerfile in
+```
+heroku login
+heroku container:login
+
+heroku container:push <image-name>
+#ex: heroku container:push web -a threesh
+
+heroku container:release <image-name>
+#ex: heroku container:release web -a threesh
+```
+
+https://devcenter.heroku.com/articles/java-support#default-web-process-type
+https://devcenter.heroku.com/articles/procfile#deploying-to-heroku
 
 ---
 [Spring multi module](https://spring.io/guides/gs/multi-module/) <br>

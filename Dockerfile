@@ -20,6 +20,4 @@ COPY ./threesh/spring-application/target/spring-application-0.0.1-SNAPSHOT.jar $
 
 RUN cp $TASK_DIR/spring-application-0.0.1-SNAPSHOT.jar $PROJECT_DIR/app.jar
 
-EXPOSE 8080
-
-CMD ["/usr/bin/java", "-jar", "/root/project/app.jar"]
+CMD /usr/bin/java -Dserver.port=$PORT $JAVA_OPTS -jar /root/project/app.jar
