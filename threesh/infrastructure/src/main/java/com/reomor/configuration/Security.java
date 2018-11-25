@@ -81,6 +81,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/**/*").permitAll()
                 .antMatchers("/files/**/*").permitAll()
 //                .antMatchers("/register").permitAll()
