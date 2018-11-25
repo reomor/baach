@@ -25,6 +25,7 @@ public class UserEntity {
     private String email;
     private String passwordHash;
     private String passwordSalt;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

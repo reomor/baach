@@ -16,17 +16,33 @@
             <column name="email" type="varchar(255)"/>
             <column name="password_hash" type="varchar(255)"/>
             <column name="password_salt" type="varchar(255)"/>
+            <column name="enabled" type="boolean"/>
         </createTable>
 
         <addAutoIncrement tableName="user" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
 
-        <createTable tableName="user_roles" remarks="user entities">
+        <createTable tableName="user_roles">
             <column name="user_id" type="int"/>
             <column name="role" type="varchar(255)"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
                                  constraintName="user_id_fk"
+                                 referencedTableName="user" referencedColumnNames="id"/>
+
+        <createTable tableName="token">
+            <column name="token_id" type="int">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="token" type="varchar(255)"/>
+            <column name="expiry_date" type="date"/>
+            <column name="user_id" type="int"/>
+        </createTable>
+
+        <addAutoIncrement tableName="token" columnName="token_id" columnDataType="int" startWith="1" incrementBy="1"/>
+
+        <addForeignKeyConstraint baseTableName="token" baseColumnNames="user_id"
+                                 constraintName="token_user_id_fk"
                                  referencedTableName="user" referencedColumnNames="id"/>
 
         <createTable tableName="image">

@@ -2,35 +2,40 @@ package com.reomor.impl.service;
 
 import com.reomor.core.domain.User;
 import com.reomor.core.domain.UserRoles;
+import com.reomor.core.domain.VerificationToken;
+import com.reomor.impl.repository.TokenRepository;
 import com.reomor.impl.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserService, UserAuthorizationService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, TokenRepository tokenRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User register(String name, String email, String password, UserRoles role, UserRoles... roles) {
-        if(Objects.nonNull(userRepository.findOneByEmail(email))) {
+        if (Objects.nonNull(userRepository.findOneByEmail(email))) {
             throw new RuntimeException("User with this email has been registered before");
         }
         String passwordSalt = UUID.randomUUID().toString();
         String passwordHash = passwordEncoder.encode(password + passwordSalt);
-        User user = new User(name, email, passwordHash, passwordSalt, role, roles);
+        User user = new User(name, email, passwordHash, passwordSalt, false, role, roles);
         return userRepository.create(user);
     }
 
@@ -55,6 +60,17 @@ public class UserServiceImpl implements UserService, UserAuthorizationService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    @Transactional //for async event handling
+    public void createVerificationToken(User user, String token) {
+        tokenRepository.save(user, token);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String token) {
+        return tokenRepository.findByToken(token);
     }
 
     @Override

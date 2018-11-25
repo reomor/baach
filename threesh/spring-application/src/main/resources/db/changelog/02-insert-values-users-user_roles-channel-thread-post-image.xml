@@ -15,6 +15,7 @@
             <!-- Password is: 123 -->
             <column name="password_hash">$2a$10$8LiZBRiyLwdqOxq/YyGM9eOFSs/hvtiXsaDRfbZCfSz23DwRz3bNy</column>
             <column name="password_salt">bd06e57b-72d9-4be7-9ddd-62cae29f9ddc</column>
+            <column name="enabled">true</column>
         </insert>
 
         <insert tableName="user_roles">
