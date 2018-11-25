@@ -7,7 +7,8 @@
 <body>
 <div th:replace="fragments/header :: header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
@@ -20,33 +21,91 @@
         </div>
     </nav>
 </div>
-<div class="btn-group">
-    <a type="button" class="btn btn-secondary" th:href="@{/author/view(edit=true)}" href="view.html">Create new author</a>
+<div class="btn-group mb-2" role="group">
+    <button type="button" class="btn btn-secondary" th:onclick="createUser()"
+            onclick="">Create user
+    </button>
 </div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="userCreateModal" tabindex="-1" role="dialog"
+     aria-labelledby="userCreateModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userCreateModalLabel">Add new user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form class="form-horizontal form" th:action="@{/user}" th:object="${userForm}" method="post">
+                    <h3 class="text-center text-primary">New user</h3>
+                    <div class="form-group row">
+                        <label for="userFormName" class="col-sm-4 col-form-label">Name:</label><br>
+                        <div class="col-sm-8">
+                            <input id="userFormName" type="text" th:field="*{name}" class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="userFormEmail" class="col-sm-4 col-form-label">Email:</label><br>
+                        <div class="col-sm-8">
+                            <input id="userFormEmail" type="text" th:field="*{email}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userFormPassword" class="col-sm-4 col-form-label">Password:</label><br>
+                        <div class="col-sm-8">
+                            <input id="userFormPassword" type="password" th:field="*{password}"
+                                   class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userFormPasswordConfirmation" class="col-sm-4 col-form-label">Password
+                            confirmation:</label><br>
+                        <div class="col-sm-8">
+                            <input id="userFormPasswordConfirmation" type="password"
+                                   th:field="*{passwordConfirmation}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
-    <table class="table table-hover">
+    <div th:if="${alertFail}" class="alert alert-danger" th:text="${alertFail}">
+        Failed to register. :(
+    </div>
+    <h5 class="bd-title">Users list</h5>
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Name Sername</th>
-            <th scope="col">Date of birth</th>
-            <th scope="col">Biography</th>
-            <th scope="col">Actions</th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Enabled</th>
+            <th scope="col">Roles</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="author : ${authors}" th:object="${author}">
-            <td th:text="*{name + ' ' + sername}">John Doe</td>
-            <td th:text="*{dateOfBirth}">2018-08-15</td>
-            <td th:text="*{biography}">Bad boy</td>
-            <td>
-                <a type="button" class="btn btn-secondary" th:href="@{/author/view(id=${author.id})}" href="view.html">View</a>
-                <a type="button" class="btn btn-secondary" th:href="@{/author/view(id=${author.id},edit=true)}" href="edit.html">Edit</a>
-                <a type="button" class="btn btn-secondary" th:href="@{/author/delete(id=${author.id})}" href="list.html">Delete</a>
-            </td>
+        <tr th:each="oneuser : ${users}">
+            <th scope="row" th:text="${oneuser.id}">1</th>
+            <td th:text="${oneuser.name}">Mark</td>
+            <td th:text="${oneuser.email}">mark@mail.com</td>
+            <td th:text="${oneuser.enabled}">true</td>
+            <td th:text="${oneuser.rolesList}"></td>
         </tr>
         </tbody>
     </table>
 </div>
-
+<script type="text/javascript" th:src="@{/js/userAjax.js}"></script>
 </body>
 </html>
