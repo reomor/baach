@@ -6,6 +6,12 @@ mvn clean && mvnw install
 mvnw spring-boot:run -pl threesh/spring-application
 ```
 
+build docker
+```
+docker build -t <image-tag> .
+```
+
+---
 [Spring multi module](https://spring.io/guides/gs/multi-module/) <br>
 [Onion](https://dzone.com/articles/onion-architecture-is-interesting)
 
