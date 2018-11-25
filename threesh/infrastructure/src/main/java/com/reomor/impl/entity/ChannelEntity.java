@@ -24,5 +24,6 @@ public class ChannelEntity {
     private String name;
 
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("priority DESC")
     private List<ThreadEntity> threads;
 }

@@ -9,6 +9,7 @@ import com.reomor.impl.entity.ThreadEntity;
 import com.reomor.impl.mapper.DomainToEntityMapper;
 import com.reomor.impl.mapper.EntityToDomainMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -69,12 +70,22 @@ public class ThreadRepositoryImpl implements ThreadRepository {
 
     @Override
     public List<Thread> findAllThreadsInChannel(Long channelId) {
-        return threadRepository.findAllByChannel_Id(channelId).stream().map(entityToDomainMapper::convertThread).collect(Collectors.toList());
+        return threadRepository.findAllByChannel_Id(channelId, new Sort(Sort.Direction.DESC, "priority"))
+                .stream().map(entityToDomainMapper::convertThread).collect(Collectors.toList());
+    }
+
+    private Long getNextSeriesId() {
+        return threadRepository.getNextSeriesId();
     }
 
     @Override
     public Post createPost(Long threadId, Long imageId, Post post) {
         ThreadEntity threadEntity = threadRepository.getOne(threadId);
+
+        // generate new priority
+        threadEntity.setPriority(getNextSeriesId());
+        threadRepository.save(threadEntity);
+
         ImageEntity imageEntity = imageRepository.getOne(imageId);
         PostEntity postEntity = domainToEntityMapper.convertPost(post);
         postEntity.setThread(threadEntity);
