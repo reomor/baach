@@ -38,12 +38,13 @@
     <div class="row flex-xl-nowrap">
         <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
             <nav class="bd-links" id="bd-nav">
-                <div class="bd-toc-item" th:each="channel : ${channels}" th:object="${channel}">
-                    <a class="bd-toc-link" href="/channel?channel=123"
-                       th:text="${channel.name}" th:href="@{/channel(id=${channel.id})}">
-                        aaa
-                    </a>
-                </div>
+                <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
+                    <li class="list-group-item">
+                        <a class="bd-toc-link" href="/channel?channel=123" th:text="${channel.name}"
+                           th:href="@{/channel(id=${channel.id})}">
+                            aaa
+                        </a></li>
+                </ul>
             </nav>
         </div>
         <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
