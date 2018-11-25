@@ -74,9 +74,18 @@ public class ThreadRepositoryImpl implements ThreadRepository {
                 .stream().map(entityToDomainMapper::convertThread).collect(Collectors.toList());
     }
 
+    private Long getNextSeriesId() {
+        return threadRepository.getNextSeriesId();
+    }
+
     @Override
     public Post createPost(Long threadId, Long imageId, Post post) {
         ThreadEntity threadEntity = threadRepository.getOne(threadId);
+
+        // generate new priority
+        threadEntity.setPriority(getNextSeriesId());
+        threadRepository.save(threadEntity);
+
         ImageEntity imageEntity = imageRepository.getOne(imageId);
         PostEntity postEntity = domainToEntityMapper.convertPost(post);
         postEntity.setThread(threadEntity);
