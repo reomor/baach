@@ -8,6 +8,9 @@ import com.reomor.impl.mapper.EntityToDomainMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Repository
 public class ImageStorageImpl implements ImageStorage {
@@ -44,5 +47,10 @@ public class ImageStorageImpl implements ImageStorage {
     @Override
     public Image load(String filename) {
         return null;
+    }
+
+    @Override
+    public List<Image> loadAll() {
+        return jpaImageRepository.findAll().stream().map(entityToDomainMapper::convertImage).collect(Collectors.toList());
     }
 }

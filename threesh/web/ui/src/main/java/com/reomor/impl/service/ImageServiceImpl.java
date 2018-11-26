@@ -6,6 +6,8 @@ import com.reomor.core.service.ImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Service
 public class ImageServiceImpl implements ImageService {
 
@@ -28,5 +30,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image load(String filename) {
         return null;
+    }
+
+    @Override
+    public List<Image> loadAll() {
+        return imageStorage.loadAll();
     }
 }

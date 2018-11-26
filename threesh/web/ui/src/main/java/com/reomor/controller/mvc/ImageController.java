@@ -18,6 +18,7 @@ public class ImageController {
 
     @GetMapping("/image")
     public String users(Model model) {
+        model.addAttribute("images", imageService.loadAll());
         return "image/list";
     }
 }
