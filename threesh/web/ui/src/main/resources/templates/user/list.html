@@ -40,7 +40,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal form" th:action="@{/user}" th:object="${userForm}" method="post">
+                <form class="form-horizontal form" th:action="@{/user}" th:object="${userForm}" th:method="post">
                     <h3 class="text-center text-primary">New user</h3>
                     <div class="form-group row">
                         <label for="userFormName" class="col-sm-4 col-form-label">Name:</label><br>
