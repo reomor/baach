@@ -37,15 +37,27 @@
 
         <!-- CHANNEL -->
         <insert tableName="channel">
-            <column name="name">aaa</column>
+            <column name="name">3sh</column>
+            <column name="description">Discussion about 3sh channel</column>
+            <column name="rules"><![CDATA[FAQ<ul><li>Don't panic</li><li>Keep calm</li><li>Prepare fire extinguisher</li></ul>]]></column>
         </insert>
 
         <insert tableName="channel">
-            <column name="name">bbb</column>
+            <column name="name">b</column>
+            <column name="description">Channel is about everything</column>
+            <column name="rules"><![CDATA[FAQ Everything except bioproblems]]></column>
         </insert>
 
         <insert tableName="channel">
-            <column name="name">ccc</column>
+            <column name="name">soc</column>
+            <column name="description">Social communication</column>
+            <column name="rules"><![CDATA[FAQ Don't even dare to find a tyan]]></column>
+        </insert>
+
+        <insert tableName="channel">
+            <column name="name">deanon</column>
+            <column name="description">I see you</column>
+            <column name="rules"><![CDATA[FAQ to prove that u is u<ol><li>draw a d**k on your face</li><li>send us yr photo</li>]]></column>
         </insert>
 
         <!-- THREAD -->

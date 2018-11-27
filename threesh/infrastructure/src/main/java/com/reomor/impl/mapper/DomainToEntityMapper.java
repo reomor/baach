@@ -42,6 +42,6 @@ public class DomainToEntityMapper {
 
     public ChannelEntity convertChannel(Channel channel) {
         List<ThreadEntity> threadEntities = channel.getThreads().stream().map(this::convertThread).collect(Collectors.toList());
-        return new ChannelEntity(channel.getId(), channel.getName(), threadEntities);
+        return new ChannelEntity(channel.getId(), channel.getName(), channel.getDescription(), channel.getRules(), threadEntities);
     }
 }

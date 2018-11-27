@@ -23,6 +23,12 @@ public class ChannelEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "rules")
+    private String rules;
+
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("priority DESC")
     private List<ThreadEntity> threads;
