@@ -3,6 +3,7 @@ package com.reomor.impl.service;
 import com.reomor.core.domain.User;
 import com.reomor.core.domain.UserRoles;
 import com.reomor.core.domain.VerificationToken;
+import com.reomor.exception.UserAlreadyRegesteredException;
 import com.reomor.impl.repository.TokenRepository;
 import com.reomor.impl.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(String name, String email, String password, boolean enable, UserRoles role, UserRoles... roles) {
         if (Objects.nonNull(userRepository.findOneByEmail(email))) {
-            throw new RuntimeException("User with this email has been registered before");
+            throw new UserAlreadyRegesteredException("User with this email has been registered before");
         }
         String passwordSalt = UUID.randomUUID().toString();
         String passwordHash = passwordEncoder.encode(password + passwordSalt);
