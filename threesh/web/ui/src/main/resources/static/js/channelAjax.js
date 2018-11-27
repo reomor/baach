@@ -1,4 +1,4 @@
-let modal = $("#channelCreateModa");
+let modal = $("#channelCreateModal");
 
 function createChannel() {
     modal.modal();

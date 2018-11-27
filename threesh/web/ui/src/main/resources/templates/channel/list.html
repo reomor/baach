@@ -41,7 +41,7 @@
     </button>
 </div>
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="channelCreateModa" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="channelCreateModal" tabindex="-1" role="dialog"
      aria-labelledby="channelCreateModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -56,22 +56,22 @@
             <div class="modal-body">
                 <form class="form-horizontal form" th:action="@{/channel}" th:object="${channelForm}" th:method="post">
                     <div class="form-group row">
-                        <label for="userFormEmail" class="col-sm-3 col-form-label">Name:</label><br>
+                        <label for="channelFormName" class="col-sm-3 col-form-label">Name:</label><br>
                         <div class="col-sm-9">
-                            <input id="userFormEmail" type="text" th:field="*{name}" class="form-control">
+                            <input id="channelFormName" type="text" th:field="*{name}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="inputPostMessage">Description:</label>
+                        <label for="channelFormDescription" class="col-sm-3 col-form-label">Description:</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
+                            <textarea class="form-control" name="postMessage" id="channelFormDescription" rows="5"
                                       th:field="*{description}" th:required required></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="inputPostMessage">Rules:</label>
+                        <label for="channelFormRules" class="col-sm-3 col-form-label">Rules:</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
+                            <textarea class="form-control" name="postMessage" id="channelFormRules" rows="5"
                                       th:field="*{rules}" th:required required></textarea>
                         </div>
                     </div>
