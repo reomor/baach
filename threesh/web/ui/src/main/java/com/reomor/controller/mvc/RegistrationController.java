@@ -3,6 +3,7 @@ package com.reomor.controller.mvc;
 import com.reomor.core.domain.User;
 import com.reomor.core.domain.VerificationToken;
 import com.reomor.dto.RegistrationFormDto;
+import com.reomor.exception.UserAlreadyRegesteredException;
 import com.reomor.impl.repository.TokenRepository;
 import com.reomor.impl.service.UserService;
 import com.reomor.registration.OnRegistrationCompleteEvent;
@@ -26,6 +27,9 @@ public class RegistrationController {
     private static final String SUCCESSFULLY_REGISTERED = "Successfully registered. Please, confirm registration by link in email :)";
     private static final String INVALID_TOKEN = "Invalid token";
     private static final String TOKEN_IS_EXPIRED = "Token is expired. Send new one - check email.";
+    private static final String CREDENTIALS_ALREADY_EXISTS = "User with this credentials already exists";
+
+    private static final String REGISTRATION_CONFIRM_MAP = "registrationConfirm";
 
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
@@ -64,7 +68,14 @@ public class RegistrationController {
             return "registration/form";
         }
         // is validated
-        User userRegistered = userService.register(registrationFormDto.getName(), registrationFormDto.getEmail(), registrationFormDto.getPassword());
+        User userRegistered = null;
+        try {
+            userRegistered = userService.register(registrationFormDto.getName(), registrationFormDto.getEmail(), registrationFormDto.getPassword());
+        } catch (UserAlreadyRegesteredException e) {
+            log.info("User with this credentials already exists");
+            redirectAttributes.addFlashAttribute("alertFail", CREDENTIALS_ALREADY_EXISTS);
+            return "redirect:/login";
+        }
         if (userRegistered == null) {
             log.info("User with this credentials not found");
             redirectAttributes.addFlashAttribute("alertFail", FAILED_TO_REGISTER);
@@ -72,7 +83,7 @@ public class RegistrationController {
         }
         try {
             log.info("Sending email with confirmation link");
-            confirmRegistrationByEmail(userRegistered, request.getRequestURL().toString());
+            confirmRegistrationByEmail(userRegistered, request);
         } catch (Exception me) {
             log.info("Failed to send confirmation email");
             redirectAttributes.addFlashAttribute("alertFail", FAILED_TO_REGISTER);
@@ -102,7 +113,7 @@ public class RegistrationController {
             log.info("Token is expired: ", token);
             redirectAttributes.addAttribute("alertFail", TOKEN_IS_EXPIRED);
             tokenRepository.delete(token);
-            confirmRegistrationByEmail(user, request.getRequestURL().toString());
+            confirmRegistrationByEmail(user, request);
             return "redirect:/login";
         }
         log.info("User activated");
@@ -111,7 +122,11 @@ public class RegistrationController {
         return "redirect:/login";
     }
 
-    private void confirmRegistrationByEmail(User userRegistered, String appUrl) {
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userRegistered, appUrl));
+    private void confirmRegistrationByEmail(User userRegistered, HttpServletRequest request) {
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userRegistered, getUri(request, REGISTRATION_CONFIRM_MAP)));
+    }
+
+    private String getUri(HttpServletRequest request, String mapping) {
+        return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + mapping;
     }
 }
