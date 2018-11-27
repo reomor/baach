@@ -30,6 +30,7 @@ public class RegistrationController {
     private static final String CREDENTIALS_ALREADY_EXISTS = "User with this credentials already exists";
 
     private static final String REGISTRATION_CONFIRM_MAP = "registrationConfirm";
+    public static final String CONFIRMED_PLEASE_LOGIN = "User confirmed. Please, login :)";
 
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
@@ -104,14 +105,14 @@ public class RegistrationController {
         VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
             log.info("Token not found");
-            redirectAttributes.addAttribute("alertFail", INVALID_TOKEN);
+            redirectAttributes.addFlashAttribute("alertFail", INVALID_TOKEN);
             return "redirect:/login";
         }
         log.info("Token found: check expiration status");
         User user = verificationToken.getUser();
         if (verificationToken.isExpired()) {
             log.info("Token is expired: ", token);
-            redirectAttributes.addAttribute("alertFail", TOKEN_IS_EXPIRED);
+            redirectAttributes.addFlashAttribute("alertFail", TOKEN_IS_EXPIRED);
             tokenRepository.delete(token);
             confirmRegistrationByEmail(user, request);
             return "redirect:/login";
@@ -119,6 +120,7 @@ public class RegistrationController {
         log.info("User activated");
         user.setEnabled(true);
         userService.update(user);
+        redirectAttributes.addFlashAttribute("alertSuccess", CONFIRMED_PLEASE_LOGIN);
         return "redirect:/login";
     }
 
