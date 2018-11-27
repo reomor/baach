@@ -17,10 +17,10 @@ heroku CLI in directory with Dockerfile in
 heroku login
 heroku container:login
 
-heroku container:push <image-name>
+heroku container:push <image-tag>
 #ex: heroku container:push web -a threesh
 
-heroku container:release <image-name>
+heroku container:release <image-tag>
 #ex: heroku container:release web -a threesh
 ```
 
