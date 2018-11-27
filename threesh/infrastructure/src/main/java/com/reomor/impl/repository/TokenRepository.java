@@ -10,4 +10,6 @@ public interface TokenRepository {
     VerificationToken findByUser(User user);
 
     VerificationToken save(User user, String token);
+
+    void delete(String token);
 }

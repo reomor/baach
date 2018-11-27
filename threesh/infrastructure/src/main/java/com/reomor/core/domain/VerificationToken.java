@@ -3,6 +3,7 @@ package com.reomor.core.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class VerificationToken {
 
     private static final int EXPIRATION = 60 * 24;

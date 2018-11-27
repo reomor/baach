@@ -46,4 +46,9 @@ public class TokenRepositoryImpl implements TokenRepository {
         verificationTokenEntity.setUser(userRepository.getOne(user.getId()));
         return entityToDomainMapper.convertToken(tokenRepository.save(verificationTokenEntity));
     }
+
+    @Override
+    public void delete(String token) {
+        tokenRepository.deleteByToken(token);
+    }
 }
