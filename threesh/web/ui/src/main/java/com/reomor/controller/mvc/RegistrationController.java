@@ -113,7 +113,7 @@ public class RegistrationController {
         if (verificationToken.isExpired()) {
             log.info("Token is expired: ", token);
             redirectAttributes.addFlashAttribute("alertFail", TOKEN_IS_EXPIRED);
-            tokenRepository.delete(token);
+            tokenRepository.delete(verificationToken.getId());
             confirmRegistrationByEmail(user, request);
             return "redirect:/login";
         }

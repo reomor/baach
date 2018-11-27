@@ -11,5 +11,5 @@ public interface TokenRepository {
 
     VerificationToken save(User user, String token);
 
-    void delete(String token);
+    void delete(Long id);
 }

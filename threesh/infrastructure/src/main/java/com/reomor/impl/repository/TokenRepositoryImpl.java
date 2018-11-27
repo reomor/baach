@@ -48,7 +48,7 @@ public class TokenRepositoryImpl implements TokenRepository {
     }
 
     @Override
-    public void delete(String token) {
-        tokenRepository.deleteByToken(token);
+    public void delete(Long id) {
+        tokenRepository.deleteById(id);
     }
 }
