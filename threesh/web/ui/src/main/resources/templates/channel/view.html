@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: common_header(~{::title}, ~{})">
+    <meta charset="UTF-8"/>
+    <title>Main page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.1/assets/css/docs.min.css"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <a class="navbar-brand" href="#">Brand</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="threadReplyModal" tabindex="-1" role="dialog"
+     aria-labelledby="threadReplyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="threadReplyModalLabel">New thread</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" id="postThreadForm"
+                      th:action="@{/channel/thread(channel=${channel.id})}" th:method="post" th:object="${postDto}">
+                    <input type="hidden" name="id" id="inputThreadId" th:field="*{threadId}">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="inputPostMessage">Message:</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
+                                      th:field="*{message}" th:required required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="inputPostFile">Image:</label>
+                        <div class="col-sm-9">
+                            <input id="inputPostFile" class="form-control-file" type="file" name="file" th:required
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal-->
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+            <nav class="bd-links" id="bd-nav">
+                <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
+                    <li class="list-group-item">
+                        <a class="bd-toc-link" href="/channel?channel=123" th:text="${channel.name}"
+                           th:href="@{/channel(id=${channel.id})}">
+                            aaa
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
+            <h5 class="bd-title" th:text="${channel.name} + ' channel'">aaa channel</h5>
+            <div class="btn-group mb-2" role="group">
+                <button type="button" class="btn btn-secondary" th:onclick="'replyThread(\'\')'"
+                        onclick="">Create thread
+                </button>
+            </div>
+            <div class="card mb-3" th:each="thread : ${channel.threads}">
+                <div class="card-header">
+                    <div class="btn-toolbar justify-content-end">
+                        <div class="btn-group" role="group" sec:authorize="!hasRole('ADMIN')">
+                            <button type="button" class="btn btn-secondary"
+                                    th:onclick="'replyThread(' + ${thread.id} + ')'"
+                                    onclick="">Reply thread
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" sec:authorize="hasRole('ADMIN')">
+                            <button type="button" class="btn btn-secondary"
+                                    th:onclick="'replyThread(' + ${thread.id} + ')'"
+                                    onclick="">Reply thread
+                            </button>
+                            <button type="button" class="btn btn-secondary" th:onclick=""
+                                    onclick="">Delete thread
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
+                             th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
+                        <div class="media-body">
+                            <h5 class="btn-group mt-0" th:text="${thread.id}">Receta 1</h5>
+                            <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Duis pharetra varius
+                            </div>
+                            <ul class="list-inline list-unstyled">
+                                <li class="list-inline-item">by Anonymous</li>
+                                <li class="list-inline-item">|</li>
+                                <li class="list-inline-item"><span><i
+                                        class="fa fa-calendar"></i> <span
+                                        th:text="${#temporals.format(thread.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
+                                </li>
+                                <li class="list-inline-item">|</li>
+                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span
+                                        th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
+                                </li>
+                            </ul>
+                            <!--nested-->
+                            <div class="media mt-3" th:each="post : ${thread.posts}">
+                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
+                                     th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
+                                <div class="media-body">
+                                    <div class="btn-toolbar justify-content-between">
+                                        <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
+                                        <div class="btn-group btn-group-sm" role="group"
+                                             sec:authorize="!hasRole('ADMIN')">
+                                            <button type="button" class="btn btn-secondary"
+                                                    th:onclick=""
+                                                    onclick="">Reply post
+                                            </button>
+                                        </div>
+                                        <div class="btn-group btn-group-sm" role="group"
+                                             sec:authorize="hasRole('ADMIN')">
+                                            <button type="button" class="btn btn-secondary"
+                                                    th:onclick=""
+                                                    onclick="">Reply post
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" th:onclick=""
+                                                    onclick="">Delete post
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                        elit. Duis pharetra varius
+                                    </div>
+                                    <ul class="list-inline list-unstyled">
+                                        <li class="list-inline-item">by Anonymous</li>
+                                        <li class="list-inline-item">|</li>
+                                        <li class="list-inline-item"><span><i
+                                                class="fa fa-calendar"></i> <span
+                                                th:text="${#temporals.format(post.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/threadAjax.js}"></script>
+</body>
+</html>

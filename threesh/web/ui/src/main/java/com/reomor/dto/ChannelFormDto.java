@@ -1,18 +1,19 @@
-package com.reomor.core.domain;
+package com.reomor.dto;
 
+import com.reomor.core.domain.Channel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Channel {
-    private Long id;
+public class ChannelFormDto {
     private String name;
     private String description;
     private String rules;
-    private List<Thread> threads;
+
+    public Channel toChannel() {
+        return new Channel(null, this.name, this.description, this.rules, null);
+    }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="fragments/header :: common_header(~{::title}, ~{})">
     <meta charset="UTF-8"/>
     <title>Main page</title>
@@ -34,34 +35,44 @@
         </div>
     </nav>
 </div>
+<div class="btn-group mb-2" role="group" sec:authorize="hasRole('ADMIN')">
+    <button type="button" class="btn btn-secondary" th:onclick="createChannel()"
+            onclick="">Create channel
+    </button>
+</div>
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="threadReplyModal" tabindex="-1" role="dialog"
-     aria-labelledby="threadReplyModalLabel"
+<div class="modal fade bd-example-modal-lg" id="channelCreateModal" tabindex="-1" role="dialog"
+     aria-labelledby="channelCreateModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="threadReplyModalLabel">New thread</h5>
+                <h5 class="modal-title" id="channelCreateModalLabel">New channel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" id="postThreadForm"
-                      th:action="@{/channel/thread(channel=${channel.id})}" th:method="post" th:object="${postDto}">
-                    <input type="hidden" name="id" id="inputThreadId" th:field="*{threadId}">
+                <form class="form-horizontal form" th:action="@{/channel}" th:object="${channelForm}" th:method="post">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="inputPostMessage">Message:</label>
+                        <label for="channelFormName" class="col-sm-3 col-form-label">Name:</label><br>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
-                                      th:field="*{message}" th:required required></textarea>
+                            <input id="channelFormName" type="text" th:field="*{name}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="inputPostFile">Image:</label>
+                        <label for="channelFormDescription" class="col-sm-3 col-form-label">Description:</label>
                         <div class="col-sm-9">
-                            <input id="inputPostFile" class="form-control-file" type="file" name="file" th:required required/>
+                            <textarea class="form-control" name="postMessage" id="channelFormDescription" rows="5"
+                                      th:field="*{description}" th:required required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="channelFormRules" class="col-sm-3 col-form-label">Rules:</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="postMessage" id="channelFormRules" rows="5"
+                                      th:field="*{rules}" th:required required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -76,7 +87,7 @@
 <!-- end Modal-->
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
-        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+        <div class="col-12 col-md-3 col-xl-2">
             <nav class="bd-links" id="bd-nav">
                 <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
                     <li class="list-group-item">
@@ -88,96 +99,31 @@
             </nav>
         </div>
         <div class="col-12 col-md-9 col-xl-10 bd-content" role="main">
-            <h5 class="bd-title" th:text="${channel.name} + ' channel'">aaa channel</h5>
-            <div class="btn-group mb-2" role="group">
-                <button type="button" class="btn btn-secondary" th:onclick="'replyThread(\'\')'"
-                        onclick="">Create thread
-                </button>
-            </div>
-            <div class="card mb-3" th:each="thread : ${channel.threads}">
-                <div class="card-header">
-                    <div class="btn-toolbar justify-content-end">
-                        <div class="btn-group" role="group" sec:authorize="!hasRole('ADMIN')">
-                            <button type="button" class="btn btn-secondary"
-                                    th:onclick="'replyThread(' + ${thread.id} + ')'"
-                                    onclick="">Reply thread
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group" sec:authorize="hasRole('ADMIN')">
-                            <button type="button" class="btn btn-secondary"
-                                    th:onclick="'replyThread(' + ${thread.id} + ')'"
-                                    onclick="">Reply thread
-                            </button>
-                            <button type="button" class="btn btn-secondary" th:onclick=""
-                                    onclick="">Delete thread
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="media">
-                        <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
-                             th:src="@{'/files/' + ${thread.image.directory} + '/' + ${thread.image.fileName}}">
-                        <div class="media-body">
-                            <h5 class="btn-group mt-0" th:text="${thread.id}">Receta 1</h5>
-                            <div th:text="${thread.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Duis pharetra varius
-                            </div>
-                            <ul class="list-inline list-unstyled">
-                                <li class="list-inline-item">by Anonymous</li>
-                                <li class="list-inline-item">|</li>
-                                <li class="list-inline-item"><span><i
-                                        class="fa fa-calendar"></i> <span
-                                        th:text="${#temporals.format(thread.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
-                                </li>
-                                <li class="list-inline-item">|</li>
-                                <li class="list-inline-item"><span><i class="fa fa-comment"></i> <span
-                                        th:text="${#lists.size(thread.posts) + ' comments'}">2 comments</span></span>
-                                </li>
-                            </ul>
-                            <!--nested-->
-                            <div class="media mt-3" th:each="post : ${thread.posts}">
-                                <img class="align-self-start mr-3" src="http://placekitten.com/150/150" th:width="350"
-                                     th:src="@{'/files/' + ${post.image.directory} + '/' + ${post.image.fileName}}">
-                                <div class="media-body">
-                                    <div class="btn-toolbar justify-content-between">
-                                        <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
-                                        <div class="btn-group btn-group-sm" role="group" sec:authorize="!hasRole('ADMIN')">
-                                            <button type="button" class="btn btn-secondary"
-                                                    th:onclick=""
-                                                    onclick="">Reply post
-                                            </button>
-                                        </div>
-                                        <div class="btn-group btn-group-sm" role="group" sec:authorize="hasRole('ADMIN')">
-                                            <button type="button" class="btn btn-secondary"
-                                                    th:onclick=""
-                                                    onclick="">Reply post
-                                            </button>
-                                            <button type="button" class="btn btn-secondary" th:onclick=""
-                                                    onclick="">Delete post
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                        elit. Duis pharetra varius
-                                    </div>
-                                    <ul class="list-inline list-unstyled">
-                                        <li class="list-inline-item">by Anonymous</li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item"><span><i
-                                                class="fa fa-calendar"></i> <span
-                                                th:text="${#temporals.format(post.dateTime, 'HH:mm dd-MM-yyyy')}">2 days, 8 hours</span></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Rules</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="channel : ${channels}">
+                    <td scope="row" th:text="${channel.name}">dvash</td>
+                    <td th:text="${channel.description}">Channel description</td>
+                    <td th:utext="${channel.rules}">FAQ
+                        <ul>
+                            <li>eat</li>
+                            <li>prey</li>
+                            <li>don't watch stupid films</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<script type="text/javascript" th:src="@{/js/threadAjax.js}"></script>
+<script type="text/javascript" th:src="@{/js/channelAjax.js}"></script>
 </body>
 </html>
