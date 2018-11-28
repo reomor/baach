@@ -43,10 +43,10 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         mailSender.send(email);
     }
 
-    private final SimpleMailMessage constructEmailMessage(
+    private SimpleMailMessage constructEmailMessage(
             final OnRegistrationCompleteEvent event,
-            final User user, final
-            String token
+            final User user,
+            final String token
     ) {
         final String recipientAddress = user.getEmail();
         final String subject = "Registration Confirmation";

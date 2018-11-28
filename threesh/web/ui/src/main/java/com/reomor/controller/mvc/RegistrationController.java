@@ -30,7 +30,7 @@ public class RegistrationController {
     private static final String CREDENTIALS_ALREADY_EXISTS = "User with this credentials already exists";
 
     private static final String REGISTRATION_CONFIRM_MAP = "registrationConfirm";
-    public static final String CONFIRMED_PLEASE_LOGIN = "User confirmed. Please, login :)";
+    private static final String CONFIRMED_PLEASE_LOGIN = "User confirmed. Please, login :)";
 
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
