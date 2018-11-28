@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,27 +72,24 @@ public class Security extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable()
                 .and().csrf().disable()
-                // store session or else authorization is lost with new request
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                //.and()
                 .anonymous().authorities("ROLE_ANONYMOUS")
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
+                .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/").failureForwardUrl("/login").permitAll()
                 .and()
                 .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").logoutSuccessUrl("/login")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/**/*").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/registrationConfirm").permitAll()
                 .antMatchers("/files/**/*").permitAll()
-//                .antMatchers("/register").permitAll()
-//                .antMatchers(HttpMethod.POST, "/rest/authors").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/rest/authors/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/rest/authors/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.POST, "/rest/books").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/rest/books/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/rest/books/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers(HttpMethod.POST, "/rest/books/**/comments").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.GET, "/channel").permitAll()
+                .antMatchers(HttpMethod.POST, "/channel").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/image").permitAll()
+                .antMatchers(HttpMethod.POST, "/channel/thread").permitAll()
+                .antMatchers(HttpMethod.GET, "/user").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.POST, "/user").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
     }
 }
