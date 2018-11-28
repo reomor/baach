@@ -17,10 +17,10 @@
     background-color: #777;
 }
 .carousel-item > img {
-    position: absolute;
+    margin: 0 auto;
     top: 0;
     left: 0;
-    min-width: 100%;
+    min-width: 0;
     height: 32rem;
 }
 
