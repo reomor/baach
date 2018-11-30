@@ -26,12 +26,12 @@ public class ThreadServiceImpl implements ThreadService {
 
     @Override
     public Thread get(Long id) {
-        return null;
+        return threadRepository.get(id);
     }
 
     @Override
     public void delete(Thread thread) {
-
+        threadRepository.delete(thread);
     }
 
     @Override

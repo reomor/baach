@@ -1,5 +1,6 @@
 package com.reomor.controller.mvc;
 
+import com.reomor.core.domain.Channel;
 import com.reomor.core.service.ChannelService;
 import com.reomor.dto.ChannelFormDto;
 import com.reomor.dto.PostDto;
@@ -48,5 +49,14 @@ public class ChannelController {
         channelService.create(channelFormDto.toChannel());
         String referrer = request.getHeader("Referer");
         return "redirect:" + referrer;
+    }
+
+    @GetMapping("/channel/delete")
+    public String deleteChannel(@RequestParam(value = "id") Long id) {
+        Channel channel = channelService.get(id);
+        if (channel != null) {
+            channelService.delete(channel);
+        }
+        return "redirect:/channel";
     }
 }

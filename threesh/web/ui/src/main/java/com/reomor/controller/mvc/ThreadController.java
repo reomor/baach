@@ -7,6 +7,7 @@ import com.reomor.core.service.ThreadService;
 import com.reomor.dto.PostDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,18 @@ public class ThreadController {
             Image image = new Image(null, "", StringUtils.cleanPath(file.getOriginalFilename()));
             Thread thread = threadService.create(channelId, postDto.toThread(image));
             imageService.store(thread.getImage().getDirectory(), file);
+        }
+        return "redirect:/channel?id=" + channelId;
+    }
+
+    @GetMapping("/channel/thread/delete")
+    public String deleteChannel(
+            @RequestParam(value = "id") Long id,
+            @RequestParam(value = "channelId") String channelId
+    ) {
+        Thread thread = threadService.get(id);
+        if (thread != null) {
+            threadService.delete(thread);
         }
         return "redirect:/channel?id=" + channelId;
     }
