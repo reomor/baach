@@ -20,7 +20,7 @@
 
     <!--<logger name="com.reomor" level="debug"/>-->
 
-    <root level="debug">
+    <root level="error">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>
     </root>

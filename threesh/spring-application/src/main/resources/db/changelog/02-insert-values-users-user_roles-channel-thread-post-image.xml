@@ -28,12 +28,6 @@
             <column name="user_id">1</column>
             <column name="role">ROLE_USER</column>
         </insert>
-        
-        <!-- IMAGE -->
-        <insert tableName="image">
-            <column name="directory">test</column>
-            <column name="file_name">test.jpg</column>
-        </insert>
 
         <!-- CHANNEL -->
         <insert tableName="channel">
@@ -57,51 +51,7 @@
         <insert tableName="channel">
             <column name="name">deanon</column>
             <column name="description">I see you</column>
-            <column name="rules"><![CDATA[FAQ to prove that u is u<ol><li>draw a d**k on your face</li><li>send us yr photo</li>]]></column>
-        </insert>
-
-        <!-- THREAD -->
-        <insert tableName="thread">
-            <column name="message">thread test message1</column>
-            <column name="channel_id">1</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <insert tableName="thread">
-            <column name="message">thread test message2</column>
-            <column name="channel_id">1</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <!-- POST -->
-        <insert tableName="post">
-            <column name="message">post test message1</column>
-            <column name="thread_id">1</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <insert tableName="post">
-            <column name="message">post test message2</column>
-            <column name="thread_id">1</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <insert tableName="post">
-            <column name="message">post test message1</column>
-            <column name="thread_id">2</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <insert tableName="post">
-            <column name="message">post test message2</column>
-            <column name="thread_id">2</column>
-            <column name="image_id">1</column>
-        </insert>
-
-        <insert tableName="post">
-            <column name="message">post test message3</column>
-            <column name="thread_id">2</column>
-            <column name="image_id">1</column>
+            <column name="rules"><![CDATA[FAQ to prove that u is u<ol><li>draw a d*** on your face</li><li>send us yr photo</li><li>get respect</li></ol>]]></column>
         </insert>
 
     </changeSet>
