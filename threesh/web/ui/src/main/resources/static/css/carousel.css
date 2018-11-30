@@ -13,7 +13,7 @@
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-    height: 32rem;
+    /*height: 32rem;*/
     background-color: #777;
 }
 .carousel-item > img {
@@ -21,9 +21,11 @@
     top: 0;
     left: 0;
     min-width: 0;
-    height: 32rem;
+    height: auto;
+    max-height: 32rem;
+    width: 100%;
+    max-width: 910px;
 }
-
 
 /* MARKETING CONTENT
 -------------------------------------------------- */

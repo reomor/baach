@@ -56,13 +56,13 @@
                         <label class="col-sm-3 col-form-label" for="inputPostMessage">Message:</label>
                         <div class="col-sm-9">
                             <textarea class="form-control" name="postMessage" id="inputPostMessage" rows="5"
-                                      th:field="*{message}" th:required required></textarea>
+                                      th:field="*{message}" th:required="required" required></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="inputPostFile">Image:</label>
                         <div class="col-sm-9">
-                            <input id="inputPostFile" class="form-control-file" type="file" name="file" th:required
+                            <input id="inputPostFile" class="form-control-file" type="file" name="file" th:required="required"
                                    required/>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
 <!-- end Modal-->
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
-        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+        <div class="col-12 col-md-3 col-xl-2">
             <nav class="bd-links" id="bd-nav">
                 <ul class="list-group list-group-flush" th:each="channel : ${channels}" th:object="${channel}">
                     <li class="list-group-item">
@@ -110,9 +110,14 @@
                                     th:onclick="'replyThread(' + ${thread.id} + ')'"
                                     onclick="">Reply thread
                             </button>
-                            <button type="button" class="btn btn-secondary" th:onclick=""
-                                    onclick="">Delete thread
-                            </button>
+                            <div class="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" th:href="@{/channel/thread/delete(id=${thread.id},channelId=${channel.id})}" href="#">Delete thread</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,23 +149,6 @@
                                 <div class="media-body">
                                     <div class="btn-toolbar justify-content-between">
                                         <h5 class="mt-0" th:text="${post.id}">Receta 1</h5>
-                                        <div class="btn-group btn-group-sm" role="group"
-                                             sec:authorize="!hasRole('ADMIN')">
-                                            <button type="button" class="btn btn-secondary"
-                                                    th:onclick=""
-                                                    onclick="">Reply post
-                                            </button>
-                                        </div>
-                                        <div class="btn-group btn-group-sm" role="group"
-                                             sec:authorize="hasRole('ADMIN')">
-                                            <button type="button" class="btn btn-secondary"
-                                                    th:onclick=""
-                                                    onclick="">Reply post
-                                            </button>
-                                            <button type="button" class="btn btn-secondary" th:onclick=""
-                                                    onclick="">Delete post
-                                            </button>
-                                        </div>
                                     </div>
                                     <div th:text="${post.message}">Lorem ipsum dolor sit amet, consectetur adipiscing
                                         elit. Duis pharetra varius
